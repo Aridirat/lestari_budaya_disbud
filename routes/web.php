@@ -1,15 +1,23 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\admin\OdcbController;
 use App\Http\Controllers\Admin\OpkController;
+use App\Http\Middleware\IsLogin;
 
-Route::get('/', function () {
-    return view('layouts.main');
-});
 
-// Route ODCB
+Route::get('/login',[AuthController::class, 'loginView']);
+Route::post('/login',[AuthController::class, 'login']);
+Route::post('/logout',[AuthController::class, 'logout']);
+
+
+Route::middleware(IsLogin::class)->group(function(){
+    Route::get('/',[DashboardController::class, 'index']);
+
+    // Route ODCB
 Route::get('/odcb', [OdcbController::class, 'index'])->name('odcb.index'); 
 Route::get('/odcb/create', [OdcbController::class, 'create'])->name('odcb.create'); 
 Route::post('/odcb', [OdcbController::class, 'store'])->name('odcb.store'); // Simpan data
@@ -37,3 +45,5 @@ Route::get('/kegiatan/{id}/edit', [KegiatanController::class, 'edit'])->name('ke
 Route::put('/kegiatan/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Update data
 Route::delete('/kegiatan/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); //delete data
 // End Route Kegiatan
+  
+});
