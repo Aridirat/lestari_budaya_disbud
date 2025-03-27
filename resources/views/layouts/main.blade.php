@@ -18,22 +18,48 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   
-@include('layouts.components.navbar')
-
-@include('layouts.components.sidebar')
+  @include('layouts.components.navbar')
+  @include('layouts.components.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">
+              @php
+                $pageTitle = ucfirst(request()->segment(1) ?? 'Dashboard');
+                $subPage = ucfirst(request()->segment(2) ?? '');
+              @endphp
+              {{ $pageTitle }} 
+              @if ($subPage)
+                <small class="text-muted">/ {{ $subPage }}</small>
+              @endif
+            </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+              @if(request()->segment(1))
+                <li class="breadcrumb-item"><a href="{{ url(request()->segment(1)) }}">{{ ucfirst(request()->segment(1)) }}</a></li>
+              @endif
+              @if(request()->segment(2))
+                <li class="breadcrumb-item active">{{ ucfirst(request()->segment(2)) }}</li>
+              @endif
+            </ol>
+          </div>
+        </div>
         @yield('header')
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">@yield('content')</div>
+      <div class="container-fluid">
+        @yield('content')
+      </div>
     </section>
     <!-- /.content -->
 
@@ -47,7 +73,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0
     </div>
-    Copyright<strong> &copy; 2025 Dinas Kebudayaan Badung.</strong> All rights reserved.
+    <strong>Copyright &copy; {{ date('Y') }} <a href="#">Dinas Kebudayaan</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
