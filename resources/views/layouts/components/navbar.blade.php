@@ -122,6 +122,15 @@
         </a>
       </li>
       <li>
+        <div class="nav-item mr-2 mt-1">
+          <form action="/logout" method="post">
+            @csrf
+            @method('POST')
+            <button type="submit" class="btn btn-outline-danger btn-sm">Log Out</button>
+          </form>
+        </div>
+      </li>
+      <li>
         <div class="nav-item user-panel mr-2">
           <div class="image p-0">
             <img src="{{ asset('templates/dist/img/avatar5.png') }}" class="img-circle" alt="User Image"> 
