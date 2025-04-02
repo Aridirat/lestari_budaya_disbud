@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary">Beranda</a></li>
         <li class="breadcrumb-item active">OPK</li>
       </ol>
     </div>
@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('opk.store') }}" method="POST" enctype="multipart/form-data">
@@ -47,13 +47,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Lokasi Tradisi</label>
-                        <select name="lokasi_tradisi" class="form-control @error('lokasi_tradisi') is-invalid @enderror" required>
+                        <label>Lokasi Tradisi/Pementasan</label>
+                        <input type="text" class="form-control @error('lokasi_tradisi') is-invalid @enderror" name="lokasi_tradisi" required>
+                        {{-- <select name="lokasi_tradisi" class="form-control @error('lokasi_tradisi') is-invalid @enderror" required>
                             <option value="">Pilih Kabupaten/Kota</option>
                             @foreach (['Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'] as $alamat)
                                 <option value="{{ $alamat }}" {{ old('lokasi_tradisi') == $alamat ? 'selected' : '' }}>{{ $alamat }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
 
                     <div class="form-group">
                         <label>Nama Narasumber</label>
@@ -65,12 +66,13 @@
 
                     <div class="form-group">
                         <label>Alamat Narasumber</label>
-                        <select name="alamat_narasumber" class="form-control @error('alamat_narasumber') is-invalid @enderror" required>
+                        <input type="text" class="form-control @error('alamat_narasumber') is-invalid @enderror" name="alamat_narasumber" required>
+                        {{-- <select name="alamat_narasumber" class="form-control @error('alamat_narasumber') is-invalid @enderror" required>
                             <option value="">Pilih Kabupaten/Kota</option>
                             @foreach (['Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'] as $alamat)
                                 <option value="{{ $alamat }}" {{ old('alamat_narasumber') == $alamat ? 'selected' : '' }}>{{ $alamat }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('alamat_narasumber')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

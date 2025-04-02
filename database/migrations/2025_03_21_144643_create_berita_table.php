@@ -17,11 +17,9 @@ class CreateberitaTable extends Migration
             $table->id();
             $table->string('judul_kegiatan');
             $table->text('deskripsi');
-            $table->enum('lokasi_kegiatan', [
-                'Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 
-                'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'
-            ]);
+            $table->string('lokasi_kegiatan');
             $table->date('tanggal_kegiatan');
+            $table->string('foto');
             $table->string('dokumen_kajian')->nullable();
             $table->timestamps();
         });

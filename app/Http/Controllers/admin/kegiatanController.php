@@ -1,105 +1,121 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\berita;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class KegiatanController extends Controller
 {
-    public function index(Request $request)
-    {
-        $query = DB::table('berita');
-    
-        if ($request->has('search')) {
-            $query->where('judul_kegiatan', 'like', '%' . $request->search . '%');
+    public function index(Request $request) {
+        $query = Kegiatan::query();
+
+        if ($request->has('search') && $request->input('search') !== '') {
+            $search = $request->input('search');
+            $query->where('judul_kegiatan', 'like', "%$search%")
+                  ->orWhere('deskripsi', 'like', "%$search%")
+                  ->orWhere('lokasi_kegiatan', 'like', "%$search%");
         }
-    
-        $berita = $query->paginate(10); 
-    
-        return view('pages.kegiatan.index', compact('berita'));
+
+        $allResults = $query->get();
+        $kegiatans = $query->latest()->paginate(10);
+
+        return view('pages.kegiatan.index', [
+            "kegiatans" => $kegiatans,
+            "allResults" => $allResults,
+            "search" => $request->input('search', '')
+        ]);
     }
 
-    public function create()
-    {
+    public function create() {
         return view('pages.kegiatan.create');
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul_kegiatan' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'lokasi_kegiatan' => 'required|in:Badung,Bangli,Buleleng,Gianyar,Jembrana,Karangasem,Klungkung,Tabanan,Denpasar',
-            'tanggal_kegiatan' => 'required|date',
-            'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
+            "judul_kegiatan" => "required|min:3",
+            "deskripsi" => "nullable",
+            "lokasi_kegiatan" => "required",
+            "tanggal_kegiatan" => "required|date",
+            "dokumen_kajian" => "nullable|mimes:pdf,doc,docx|max:2048",
+            "gambar" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
         ]);
 
-        $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
+        if ($request->hasFile('dokumen_kajian')) {
+            $docName = $request->file('dokumen_kajian')->getClientOriginalName();
+            $request->file('dokumen_kajian')->move(public_path('uploads/kegiatan/dokumen'), $docName);
+            $validated['dokumen_kajian'] = 'uploads/kegiatan/dokumen/' . $docName;
+        }
 
-        DB::table('berita')->insert([
-            'judul_kegiatan' => $validated['judul_kegiatan'],
-            'deskripsi' => $validated['deskripsi'],
-            'lokasi_kegiatan' => $validated['lokasi_kegiatan'],
-            'tanggal_kegiatan' => $validated['tanggal_kegiatan'],
-            'dokumen_kajian' => $dokumenPath,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        if ($request->hasFile('gambar')) {
+            $imageName = $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('uploads/kegiatan'), $imageName);
+            $validated['gambar'] = 'uploads/kegiatan/' . $imageName;
+        }
 
-        return redirect()->route('kegiatan.index')->with('success', 'Data berhasil ditambahkan!');
+        Kegiatan::create($validated);
+
+        return redirect('/kegiatan')->with('success', 'Berhasil Menambahkan Kegiatan');
     }
 
-    public function edit($id)
-    {
-        $item = DB::table('berita')->where('id', $id)->first();
-        return view('pages.kegiatan.edit', compact('item'));
+    public function edit($id) {
+        $kegiatan = Kegiatan::findOrFail($id);
+        return view('pages.kegiatan.edit', compact('kegiatan'));
     }
-    
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'judul_kegiatan' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'lokasi_kegiatan' => 'required|in:Badung,Bangli,Buleleng,Gianyar,Jembrana,Karangasem,Klungkung,Tabanan,Denpasar',
-            'tanggal_kegiatan' => 'required|date',
-            'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
+            "judul_kegiatan" => "required|min:3",
+            "deskripsi" => "nullable",
+            "lokasi_kegiatan" => "required",
+            "tanggal_kegiatan" => "required|date",
+            "dokumen_kajian" => "nullable|mimes:pdf,doc,docx|max:2048",
+            "gambar" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
         ]);
-
-        $data = [
-            'judul_kegiatan' => $validated['judul_kegiatan'],
-            'deskripsi' => $validated['deskripsi'],
-            'lokasi_kegiatan' => $validated['lokasi_kegiatan'],
-            'tanggal_kegiatan' => $validated['tanggal_kegiatan'],
-            'updated_at' => now(),
-        ];
+    
+        $kegiatan = Kegiatan::findOrFail($id);
 
         if ($request->hasFile('dokumen_kajian')) {
-            $data['dokumen_kajian'] = $request->file('dokumen_kajian')->store('uploads', 'public');
+            if ($kegiatan->dokumen_kajian && file_exists(public_path($kegiatan->dokumen_kajian))) {
+                unlink(public_path($kegiatan->dokumen_kajian));
+            }
+            $docName = $request->file('dokumen_kajian')->getClientOriginalName();
+            $request->file('dokumen_kajian')->move(public_path('uploads/kegiatan/dokumen'), $docName);
+            $validated['dokumen_kajian'] = 'uploads/kegiatan/dokumen/' . $docName;
+        }
+    
+        if ($request->hasFile('gambar')) {
+            if ($kegiatan->gambar && file_exists(public_path($kegiatan->gambar))) {
+                unlink(public_path($kegiatan->gambar));
+            }
+            $imageName = $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('uploads/kegiatan'), $imageName);
+            $validated['gambar'] = 'uploads/kegiatan/' . $imageName;
         }
 
-        DB::table('berita')->where('id', $id)->update($data);
+        $kegiatan->update($validated);
 
-        return redirect()->route('kegiatan.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect('/kegiatan')->with('success', 'Berhasil Mengubah Kegiatan');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        $item = DB::table('berita')->where('id', $id)->first();
-    
-        if (!$item) {
-            return redirect()->route('kegiatan.index')->with('error', 'Data tidak ditemukan');
+        $kegiatan = Kegiatan::findOrFail($id);
+
+        if ($kegiatan->dokumen_kajian && file_exists(public_path($kegiatan->dokumen_kajian))) {
+            unlink(public_path($kegiatan->dokumen_kajian));
         }
-    
-        if ($item->dokumen_kajian) {
-            Storage::disk('public')->delete($item->dokumen_kajian);
+
+        if ($kegiatan->gambar && file_exists(public_path($kegiatan->gambar))) {
+            unlink(public_path($kegiatan->gambar));
         }
-    
-        DB::table('berita')->where('id', $id)->delete();
-    
-        return redirect()->route('kegiatan.index')->with('success', 'Data berhasil dihapus');
+
+        $kegiatan->delete();
+
+        return redirect('/kegiatan')->with('success', 'Berhasil Menghapus Kegiatan');
     }
 }

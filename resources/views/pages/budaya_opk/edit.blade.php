@@ -24,12 +24,13 @@
 
         <div class="mb-3">
             <label>Lokasi Tradisi</label>
-            <select name="lokasi_tradisi" class="form-control @error('lokasi_tradisi') is-invalid @enderror" required>
+            <input type="text" class="form-control @error('lokasi_tradisi') is-invalid @enderror" name="lokasi_tradisi" required>
+            {{-- <select name="lokasi_tradisi" class="form-control @error('lokasi_tradisi') is-invalid @enderror" required>
                 <option value="">Pilih Kabupaten/Kota</option>
                 @foreach (['Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'] as $alamat)
                     <option value="{{ $alamat }}" {{ ($item->lokasi_tradisi == $alamat) ? 'selected' : '' }}>{{ $alamat }}</option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
 
         <div class="mb-3">
@@ -39,13 +40,14 @@
 
         <div class="mb-3">
             <label for="alamat_narasumber" class="form-label">Alamat Narasumber</label>
-            <select name="alamat_narasumber" class="form-control">
+            <input type="text" class="form-control @error('alamat_narasumber') is-invalid @enderror" name="alamat_narasumber" required>
+            {{-- <select name="alamat_narasumber" class="form-control">
                 @foreach(['Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'] as $lokasi)
                     <option value="{{ $lokasi }}" {{ $item->alamat_narasumber == $lokasi ? 'selected' : '' }}>
                         {{ $lokasi }}
                     </option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
 
         <div class="mb-3">
