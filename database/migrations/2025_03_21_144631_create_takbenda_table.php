@@ -18,15 +18,9 @@ class CreatetakbendaTable extends Migration
             $table->string('judul_opk');
             $table->text('deskripsi');
             $table->string('alamat_tradisi');
-            $table->enum('lokasi_tradisi', [
-                'Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 
-                'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'
-            ]);
+            $table->string('lokasi_tradisi');
             $table->string('nama_narasumber');
-            $table->enum('alamat_narasumber', [
-                'Badung', 'Bangli', 'Buleleng', 'Gianyar', 'Jembrana', 
-                'Karangasem', 'Klungkung', 'Tabanan', 'Denpasar'
-            ]);
+            $table->string('alamat_narasumber');
             $table->string('no_hp');
             $table->string('kode_pos');
             $table->string('email');

@@ -30,13 +30,14 @@
 
         <div class="mb-3">
             <label for="lokasi_penemuan" class="form-label">Lokasi Penemuan</label>
-            <select name="lokasi_penemuan" class="form-control">
+            <input type="text" name="lokasi_penemuan" class="form-control @error('lokasi_penemuan') is-invalid @enderror" required>
+            {{-- <select name="lokasi_penemuan" class="form-control">
                 @foreach(['Denpasar', 'Badung', 'Gianyar', 'Tabanan', 'Kelungkung', 'Karangasem', 'Buleleng', 'Bangli', 'Jembrana'] as $lokasi)
                     <option value="{{ $lokasi }}" {{ $item->lokasi_penemuan == $lokasi ? 'selected' : '' }}>
                         {{ $lokasi }}
                     </option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
 
         <div class="mb-3">

@@ -21,11 +21,7 @@ class CreatebendaTable extends Migration
                 'Benda', 'Bangunan', 'Struktur', 
                 'Situs', 'Kawasan' 
             ]);
-            $table->enum('lokasi_penemuan', [
-                'Denpasar', 'Badung', 'Gianyar', 
-                'Tabanan' , 'Kelungkung' , 'Karangasem' , 
-                'Buleleng' , 'Bangli' , 'Jembrana' 
-            ]);
+            $table->string('lokasi_penemuan');
             $table->string('nama_pemilik');
             $table->string('alamat_pemilik');
             $table->enum('status_pemilik', [

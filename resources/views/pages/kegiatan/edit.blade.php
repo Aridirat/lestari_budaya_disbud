@@ -95,11 +95,14 @@
           <div class="card-footer">
               <div class="d-flex justify-content-end">
                   <a href="/kegiatan" class="btn btn-sm btn-outline-danger mr-2">Batal</a>
-                  <button type="submit" class="btn btn-sm btn-warning">Simpan</button>
+                  <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+
               </div>
           </div>
         </div>
     </form>
   </div>
-</div>  
+
+</div>
 @endsection
+

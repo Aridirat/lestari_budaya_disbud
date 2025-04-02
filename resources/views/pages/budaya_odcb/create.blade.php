@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary">Beranda</a></li>
         <li class="breadcrumb-item active">ODCB</li>
       </ol>
     </div>
@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('odcb.store') }}" method="POST" enctype="multipart/form-data">
@@ -53,12 +53,7 @@
 
                     <div class="form-group">
                         <label>Lokasi Penemuan</label>
-                        <select name="lokasi_penemuan" class="form-control @error('lokasi_penemuan') is-invalid @enderror" required>
-                            <option value="">Pilih Lokasi</option>
-                            @foreach (['Denpasar', 'Badung', 'Gianyar', 'Tabanan', 'Kelungkung', 'Karangasem', 'Buleleng', 'Bangli', 'Jembrana'] as $lokasi)
-                                <option value="{{ $lokasi }}" {{ old('lokasi_penemuan') == $lokasi ? 'selected' : '' }}>{{ $lokasi }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="lokasi_penemuan" class="form-control @error('lokasi_penemuan') is-invalid @enderror" required>
                         @error('lokasi_penemuan')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
