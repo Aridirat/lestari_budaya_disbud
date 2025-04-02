@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/login',[AuthController::class, 'loginView']);
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
-
 
 Route::middleware(IsLogin::class)->group(function(){
 
@@ -47,4 +47,6 @@ Route::get('/kegiatan/{id}/edit', [KegiatanController::class, 'edit'])->name('ke
 Route::put('/kegiatan/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Update data
 Route::delete('/kegiatan/{id}', [KegiatanController::class, 'delete'])->name('kegiatan.delete'); //delete data
 // End Route Kegiatan
+
 });
+
