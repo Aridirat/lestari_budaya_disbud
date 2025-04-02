@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,6 @@ use App\Http\Middleware\IsLogin;
 Route::get('/login',[AuthController::class, 'loginView']);
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
-
 
 Route::middleware(IsLogin::class)->group(function(){
     Route::get('/',[DashboardController::class, 'index']);
