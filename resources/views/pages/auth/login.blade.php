@@ -49,10 +49,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
+          <div class="col-4">
+            <a href="/" class="btn btn-secondary btn-block">Back</a>
           </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-6 offset-2">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->

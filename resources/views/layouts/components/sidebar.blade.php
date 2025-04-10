@@ -33,7 +33,7 @@
   $menus =[
     (Object)[
       "title" => "Dashboard",
-      "path" => "/",
+      "path" => "dashboard",
       "icon" => "fas fa-home",
     ],
 
@@ -50,7 +50,7 @@
     ],
 
     (Object)[
-      "title" => "KEGIATAN",
+      "title" => "Kegiatan",
       "path" => "kegiatan",
       "icon" => "fas fa-briefcase",
     ],
@@ -59,8 +59,7 @@
 
 <aside class="main-sidebar sidebar-dark-teal elevation-4">
     <!-- Brand Logo -->
-
-    <a href="/" class="brand-link text-decoration-none">
+    <a href="/dashboard" class="brand-link text-decoration-none">
       <img src="{{ asset ('templates/dist/img/icon_disbud.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-bold text-balance">Gedog CB Badung</span>
 

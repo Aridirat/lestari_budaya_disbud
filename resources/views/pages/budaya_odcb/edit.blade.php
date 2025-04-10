@@ -13,11 +13,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
-        </div>
-
-        <div class="mb-3">
             <label for="kategori" class="form-label">Kategori</label>
             <select name="kategori" class="form-control">
                 @foreach(['Benda', 'Bangunan', 'Struktur', 'Situs', 'Kawasan'] as $kategori)
@@ -56,6 +51,11 @@
                 <option value="Pribadi" {{ $item->status_pemilik == 'Pribadi' ? 'selected' : '' }}>Pribadi</option>
                 <option value="Pemerintah" {{ $item->status_pemilik == 'Pemerintah' ? 'selected' : '' }}>Pemerintah</option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi Obyek</label>
+            <textarea name="deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
         </div>
 
         <div class="mb-3">
