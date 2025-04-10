@@ -156,7 +156,7 @@
     <div class="hs-carousel-body font-quicksand min-h-72 flex flex-nowrap gap-2 mb-5 transition-transform duration-700 opacity-0">
       
       <!-- Card -->
-      @foreach ($kegiatans->take(6) as $item)
+      @foreach ($kegiatans->take(10) as $item)
       <div class="flex hs-carousel-slide snap-center gap-6 my-5">
         <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10 flex-none w-80" href="#">
           <div class="aspect-w-16 aspect-h-9">
