@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
+use App\Http\Controllers\landingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\admin\OdcbController;
@@ -13,10 +14,13 @@ Route::get('/login',[AuthController::class, 'loginView']);
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
 
+Route::get('/', [landingController::class, 'index'])->name('landing.index'); 
+Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan'); 
+Route::get('/berita', [landingController::class, 'berita'])->name('landing.berita'); 
 
 Route::middleware(IsLogin::class)->group(function(){
 
-    Route::get('/',[DashboardController::class, 'index']);
+    Route::get('/dashboard',[DashboardController::class, 'index']);
     // Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Route ODCB

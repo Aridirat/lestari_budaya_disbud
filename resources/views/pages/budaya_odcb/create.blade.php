@@ -31,14 +31,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
-                        @error('deskripsi')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label>Kategori</label>
                         <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
                             <option value="">Pilih Kategori</option>
@@ -84,6 +76,14 @@
                             @endforeach
                         </select>
                         @error('status_pemilik')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

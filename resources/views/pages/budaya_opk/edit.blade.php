@@ -13,11 +13,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
-        </div>
-
-        <div class="mb-3">
             <label for="alamat_tradisi" class="form-label">Alamat Tradisi</label>
             <input type="text" name="alamat_tradisi" class="form-control" value="{{ old('alamat_tradisi', $item->alamat_tradisi) }}" required>
         </div>
@@ -63,6 +58,11 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" value="{{ $item->email }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi Kebudayaan</label>
+            <textarea name="deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
         </div>
 
         <div class="mb-3">

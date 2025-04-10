@@ -40,7 +40,7 @@ class OpkController extends Controller
             'no_hp' => 'required|string|max:15',
             'kode_pos' => 'required|string|max:10',
             'email' => 'required|email|max:255',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'video' => [
                 'required',
                 'url',
