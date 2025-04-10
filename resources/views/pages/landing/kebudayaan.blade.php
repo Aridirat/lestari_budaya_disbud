@@ -75,23 +75,23 @@
     <h2 class="text-2xl font-merienda font-bold md:text-4xl md:leading-tight dark:text-white">Kebudayaan Benda</h2>
     <p class="font-quicksand mt-1 text-gray-600 dark:text-neutral-400">Warisan benda yang menjadi kearifan lokal yang telah ditemukan di Kabupaten Badung.</p>
   </div>
-  <div class="grid grid-cols-3 gap-4 m-10 font-quicksand">
-      @foreach ($benda as $item)
-      <div class="card hover:bg-gray-100 rounded-xl">
-        <div class="card-body p-2 flex justify-center">
-          <img class="aspect-3/2 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
+    <div class="grid grid-cols-3 gap-4 m-10 font-quicksand">
+        @foreach ($benda as $item)
+        <div class="card hover:bg-gray-100 rounded-xl">
+          <div class="card-body p-2 flex justify-center">
+            <img class="aspect-3/2 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
+          </div>
+          <div class="p-4 md:p-5">
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white pb-2">
+              {{ $item->nama_obyek }}
+            </h3>
+            <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">{{ $item->lokasi_penemuan }}</p>
+            <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
+              Detail
+            </a>
+          </div>
         </div>
-        <div class="p-4 md:p-5">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-white pb-2">
-            {{ $item->nama_obyek }}
-          </h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">{{ $item->lokasi_penemuan }}</p>
-          <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
-            Detail
-          </a>
-        </div>
-      </div>
-      @endforeach
+        @endforeach
     </div>
     
 </div>
