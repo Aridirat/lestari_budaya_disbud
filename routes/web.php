@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\landingController;
@@ -51,4 +52,6 @@ Route::get('/kegiatan/{id}/edit', [KegiatanController::class, 'edit'])->name('ke
 Route::put('/kegiatan/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Update data
 Route::delete('/kegiatan/{id}', [KegiatanController::class, 'delete'])->name('kegiatan.delete'); //delete data
 // End Route Kegiatan
+
 });
+

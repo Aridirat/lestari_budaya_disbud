@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class KegiatanSeeder extends Seeder
 {
+
     public function run(): void
     {
         Kegiatan::create([
@@ -28,3 +29,4 @@ class KegiatanSeeder extends Seeder
         ]);
     }
 }
+

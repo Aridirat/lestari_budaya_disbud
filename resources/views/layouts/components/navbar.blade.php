@@ -26,7 +26,7 @@
       <li>
         <div class="nav-item user-panel mr-2">
           <div class="image p-0">
-            <img src="{{ asset('templates/dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
+            <img src="{{ asset('templates/dist/img/avatar5.png') }}" class="img-circle" alt="User Image"> 
           </div>
         </div>
       </li>

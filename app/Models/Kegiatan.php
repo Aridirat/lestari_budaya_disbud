@@ -11,3 +11,4 @@ class Kegiatan extends Model
 
     protected $guarded = [];
 }
+
