@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class KegiatanController extends Controller
 {
     public function index(Request $request) {
-        $query = Kegiatan::query();
+            $query = Kegiatan::query();
 
         if ($request->has('search') && $request->input('search') !== '') {
             $search = $request->input('search');
