@@ -15,6 +15,7 @@ class TakbendaSeeder extends Seeder
     {
         takbenda::create([
             'judul_opk' => 'Upacara Ngaben',
+            "kunci_token" => "atyuisoiuyasgayugygsauuijavxvxbqpwlj",
             'deskripsi' => 'Upacara pembakaran jenazah dalam tradisi Hindu Bali.',
             'alamat_tradisi' => 'Desa Ubud',
             'lokasi_tradisi' => 'Gianyar',

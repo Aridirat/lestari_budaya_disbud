@@ -16,6 +16,7 @@ class CreatebendaTable extends Migration
         Schema::create('benda', function (Blueprint $table) {
             $table->id(); 
             $table->string('nama_obyek');
+            $table->string('kunci_token');
             $table->text('deskripsi');
             $table->enum('kategori', [
                 'Benda', 'Bangunan', 'Struktur', 

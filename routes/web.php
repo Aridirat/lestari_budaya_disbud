@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
+use App\Http\Controllers\landing_odcbController;
+use App\Http\Controllers\landing_opkController;
 use App\Http\Controllers\landingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -15,8 +17,13 @@ Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
 
 Route::get('/', [landingController::class, 'index'])->name('landing.index'); 
-Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan'); 
 Route::get('/berita', [landingController::class, 'berita'])->name('landing.berita'); 
+
+Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan');
+Route::get('/create_odcb', [landing_odcbController::class, 'index'])->name('landing.create_odcb');
+Route::post('/create_odcb',[landing_odcbController::class, 'store'])->name('landing.create_odcb.store'); 
+
+Route::get('/create_opk', [landing_opkController::class, 'index'])->name('landing.create_opk'); 
 
 Route::middleware(IsLogin::class)->group(function(){
 

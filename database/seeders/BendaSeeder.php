@@ -15,6 +15,7 @@ class BendaSeeder extends Seeder
     {
         benda::create([
             "nama_obyek" => "cakra",
+            "kunci_token" => "atyuisoiuyasgayugygsauuijavxvxbqpwlj",
             "deskripsi" => "benda pusaka",
             "kategori" => "Benda",
             "lokasi_penemuan" => "Badung",
