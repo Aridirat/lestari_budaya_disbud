@@ -7,6 +7,14 @@
         @csrf
         @method('PUT')
 
+        <div class="form-group">
+            <label>Kunci Token</label>
+            <input type="text" name="kunci_token" value="token_admin" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
+            @error('kunci_token')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
         <div class="mb-3">
             <label for="nama_obyek" class="form-label">Nama Obyek</label>
             <input type="text" name="nama_obyek" class="form-control" value="{{ $item->nama_obyek }}" required>

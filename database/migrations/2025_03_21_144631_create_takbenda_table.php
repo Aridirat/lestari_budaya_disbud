@@ -16,6 +16,7 @@ class CreatetakbendaTable extends Migration
         Schema::create('takbenda', function (Blueprint $table) {
             $table->id(); 
             $table->string('judul_opk');
+            $table->string('kunci_token');
             $table->text('deskripsi');
             $table->string('alamat_tradisi');
             $table->string('lokasi_tradisi');
