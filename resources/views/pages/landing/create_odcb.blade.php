@@ -28,7 +28,7 @@
       <!-- End Title -->
 
     </div>
-  </div>
+</div>
 <!-- End Hero -->
 
 
@@ -40,20 +40,20 @@
 
         <div class="bg-white rounded-xl shadow-xs dark:bg-neutral-900">
           <div class="pt-0 p-4 sm:pt-0 sm:p-7">
-        <div class="form-group">
-            <input type="text" name="kunci_token" id="kunci_token" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-              const randomString = localStorage.getItem('randomString');
-              if (randomString) {
-                  document.getElementById('kunci_token').value = randomString;
-              }
-                });
-            </script>
-            @error('kunci_token')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
+            <div class="form-group">
+                <input type="text" name="kunci_token" id="kunci_token" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                  const randomString = localStorage.getItem('randomString');
+                  if (randomString) {
+                      document.getElementById('kunci_token').value = randomString;
+                  }
+                    });
+                </script>
+                @error('kunci_token')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
 
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -201,7 +201,7 @@
       </div>
     </form>
 
-</div>
+  </div>
 </div>
 <!-- End Card Section -->
 

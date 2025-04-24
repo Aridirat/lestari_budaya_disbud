@@ -154,14 +154,10 @@
                 <ul class="list-unstyled small text-dark">
                   <li class="mb-2"><i class="fas fa-database text-primary me-2"></i> Mengelola Data Kebudayaan</li>
                   <li class="mb-2"><i class="fas fa-calendar-alt text-success me-2"></i> Menjadwalkan Kegiatan</li>
-                  <li class="mb-2"><i class="fas fa-chart-bar text-danger me-2"></i> Pelaporan dan Evaluasi</li>
                 </ul>
 
                 <p class="mt-3 small text-muted mb-1">
-                  Sistem ini dikelola oleh Dinas Kebudayaan Pemerintah Daerah.
-                </p>
-                <p class="small text-muted">
-                  Bantuan Teknis: <br> <strong>Ida Bagus Adimas Adiningrat</strong> <br> +62 856-1863-537
+                  Sistem ini dikelola oleh Dinas Kebudayaan Pemerintah Daerah Badung.
                 </p>
               </div>
             </div>

@@ -2,9 +2,9 @@
     $menus = [
         (object) [
             "title" => "Dashboard", 
-            "path" => "/", 
+            "path" => "/dashboard", 
             "icon" => "fas fa-tachometer-alt",
-            "active" => request()->is('/')
+            "active" => request()->is('dashboard')
         ],
         (object) [
             "title" => "OPK", 
@@ -25,36 +25,6 @@
             "active" => request()->is('kegiatan*')
         ]
     ];
-@endphp
-
-<!-- Main Sidebar Container -->
-
-@php
-  $menus =[
-    (Object)[
-      "title" => "Dashboard",
-      "path" => "dashboard",
-      "icon" => "fas fa-home",
-    ],
-
-    (Object)[
-      "title" => "OPK/WBTB",
-      "path" => "opk",
-      "icon" => "fas fa-theater-masks ",
-    ],
-
-    (Object)[
-      "title" => "ODCB/CB",
-      "path" => "odcb",
-      "icon" => "fas fa-landmark",
-    ],
-
-    (Object)[
-      "title" => "Kegiatan",
-      "path" => "kegiatan",
-      "icon" => "fas fa-briefcase",
-    ],
-];
 @endphp
 
 <aside class="main-sidebar sidebar-dark-teal elevation-4">
@@ -87,26 +57,6 @@
         </nav>
 
       <!-- Sidebar user panel (optional) -->
-
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          @foreach ($menus as $menu )
-          <li class="nav-item">
-            <a href="{{$menu->path[0]!== '/' ? '/' . $menu->path : $menu->path }}" class="nav-link {{ request()->path() === $menu->path ? 'active' : ''  }}">
-              <i class="nav-icon {{ $menu->icon }}"></i>
-              <p>
-                {{ $menu->title }}
-              </p>
-            </a>
-          </li>
-          @endforeach
-
-          
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
 
     </div>
 </aside>

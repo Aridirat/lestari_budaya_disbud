@@ -23,7 +23,6 @@
                     @csrf
 
                     <div class="form-group">
-                        <label>Kunci Token</label>
                         <input type="text" name="kunci_token" value="token_admin" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
                         @error('kunci_token')
                             <span class="text-danger">{{ $message }}</span>
