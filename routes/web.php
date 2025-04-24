@@ -24,7 +24,8 @@ Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landi
 Route::get('/create_odcb', [landing_odcbController::class, 'index'])->name('landing.create_odcb');
 Route::post('/create_odcb',[landing_odcbController::class, 'store'])->name('landing.create_odcb.store'); 
 
-Route::get('/create_opk', [landing_opkController::class, 'index'])->name('landing.create_opk'); 
+Route::get('/create_opk', [landing_opkController::class, 'index'])->name('landing.create_opk');
+Route::post('/create_opk',[landing_opkController::class, 'store'])->name('landing.create_opk.store'); 
 
 Route::middleware(IsLogin::class)->group(function(){
 
@@ -61,4 +62,3 @@ Route::delete('/kegiatan/{id}', [KegiatanController::class, 'delete'])->name('ke
 // End Route Kegiatan
 
 });
-

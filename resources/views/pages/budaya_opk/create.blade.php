@@ -23,6 +23,13 @@
                     @csrf
 
                     <div class="form-group">
+                        <input type="text" name="kunci_token" value="token_admin" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
+                        @error('kunci_token')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label>Judul OPK</label>
                         <input type="text" name="judul_opk" class="form-control @error('judul_opk') is-invalid @enderror" required value="{{ old('judul_opk') }}">
                         @error('judul_opk')

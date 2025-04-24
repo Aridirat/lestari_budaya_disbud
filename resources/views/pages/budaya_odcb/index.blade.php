@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header')
+{{-- @section('header')
 <div class="row mb-2">
     <div class="col-sm-6">
       <h1>ODCB</h1>
@@ -12,7 +12,7 @@
       </ol>
     </div>
 </div>
-@endsection
+@endsection --}}
 
 @section('content')
     {{-- Tabel Start --}}

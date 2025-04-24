@@ -41,6 +41,7 @@ class OpkController extends Controller
             'kode_pos' => 'required|string|max:10',
             'email' => 'required|email|max:255',
             'foto' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'kunci_token' => 'required|string',
             'video' => [
                 'required',
                 'url',
