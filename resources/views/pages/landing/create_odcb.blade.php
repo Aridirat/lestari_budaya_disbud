@@ -61,7 +61,7 @@
             <label for="nama_obyek" class="block text-sm/6 font-medium text-gray-900">Nama Obyek</label>
             <div class="mt-2">
               <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-teal-600">
-                <input type="text" name="nama_obyek" id="nama_obyek" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Nama obyek">
+                <input type="text" name="nama_obyek" id="nama_obyek" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Nama obyek" required>
               </div>
             </div>
           </div>
@@ -69,7 +69,7 @@
         <div class="form-group sm:col-span-7">
           <label for="kategori" class="block text-sm/6 font-medium text-gray-900">Kategori</label>
           <div class="mt-2 grid grid-cols-1">
-            <select id="kategori" name="kategori" autocomplete="Tanpa kategori" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6">
+            <select id="kategori" name="kategori" autocomplete="Tanpa kategori" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6" required>
               <option value="">Pilih Kategori</option>
                 @foreach (['Benda', 'Bangunan', 'Struktur', 'Situs', 'Kawasan'] as $kategori)
                     <option value="{{ $kategori }}" {{ old('kategori') == $kategori ? 'selected' : '' }}>{{ $kategori }}</option>
@@ -85,7 +85,7 @@
             <label for="lokasi_penemuan" class="block text-sm/6 font-medium text-gray-900">Lokasi Penemuan</label>
             <div class="mt-2">
               <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-teal-600">
-                <input type="text" name="lokasi_penemuan" id="lokasi_penemuan" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Lokasi penemuan">
+                <input type="text" name="lokasi_penemuan" id="lokasi_penemuan" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Lokasi penemuan" required>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@
             <label for="nama_pemilik" class="block text-sm/6 font-medium text-gray-900">Nama Pemilik</label>
             <div class="mt-2">
               <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-teal-600">
-                <input type="text" name="nama_pemilik" id="nama_pemilik" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Nama anda">
+                <input type="text" name="nama_pemilik" id="nama_pemilik" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Nama anda" required>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@
             <label for="alamat_pemilik" class="block text-sm/6 font-medium text-gray-900">Alamat Pemilik</label>
             <div class="mt-2">
               <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-teal-600">
-                <input type="text" name="alamat_pemilik" id="alamat_pemilik" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Alamat anda">
+                <input type="text" name="alamat_pemilik" id="alamat_pemilik" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Alamat anda" required>
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@
         <div class="form-group sm:col-span-3">
           <label for="status_pemilik" class="block text-sm/6 font-medium text-gray-900">Status Pemilik</label>
           <div class="mt-2 grid grid-cols-1">
-            <select id="status_pemilik" name="status_pemilik" autocomplete="Tanpa status_pemilik" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6">
+            <select id="status_pemilik" name="status_pemilik" autocomplete="Tanpa status_pemilik" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6" required>
               <option value="">Pilih Status</option>
                 @foreach (['Pribadi', 'Pemerintah'] as $status)
                     <option value="{{ $status }}" {{ old('status_pemilik') == $status ? 'selected' : '' }}>{{ $status }}</option>
@@ -126,7 +126,7 @@
         <div class="form-group col-span-7">
           <label for="deskripsi" class="block text-sm/6 font-medium text-gray-900">Deskripsi</label>
           <div class="mt-2">
-            <textarea name="deskripsi" id="deskripsi" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6"></textarea>
+            <textarea name="deskripsi" id="deskripsi" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6" required></textarea>
           </div>
           <p class="mt-3 text-sm/6 text-gray-600">Isilah dengan deskripsi obyek.</p>
         </div>
@@ -264,6 +264,7 @@ function removeFile() {
   document.getElementById('file-display').classList.add('hidden');
   document.getElementById('file-placeholder').style.display = 'block';
 }
+
 
 </script>
 

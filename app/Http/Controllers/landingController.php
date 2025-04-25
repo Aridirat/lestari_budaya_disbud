@@ -35,4 +35,11 @@ class landingController extends Controller
         
         return view('pages.landing.berita', compact('benda', 'kegiatans', 'takbenda'));
     }
+
+    public function detailBerita(Request $request, $id)
+    {
+        $kegiatans = Kegiatan::findOrFail($id);
+        $allKegiatans = Kegiatan::orderBy('created_at', 'desc')->get();
+        return view('pages.landing.detailBerita', compact( 'kegiatans', 'allKegiatans'));
+    }
 }

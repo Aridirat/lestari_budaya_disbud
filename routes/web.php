@@ -17,16 +17,21 @@ Route::get('/login',[AuthController::class, 'loginView']);
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
 
-Route::get('/', [landingController::class, 'index'])->name('landing.index'); 
-Route::get('/berita', [landingController::class, 'berita'])->name('landing.berita'); 
+Route::get('/', [landingController::class, 'index'])->name('landing.index');
+
+Route::get('/berita', [landingController::class, 'berita'])->name('landing.berita');
+Route::get('/berita/{id}/detail', [landingController::class, 'detailBerita'])->name('landing.detailBerita');
 
 Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan');
+
+
 Route::get('/create_odcb', [landing_odcbController::class, 'index'])->name('landing.create_odcb');
 Route::post('/create_odcb',[landing_odcbController::class, 'store'])->name('landing.create_odcb.store'); 
 
 Route::get('/create_opk', [landing_opkController::class, 'index'])->name('landing.create_opk');
 Route::post('/create_opk',[landing_opkController::class, 'store'])->name('landing.create_opk.store'); 
 
+// Admin Route
 Route::middleware(IsLogin::class)->group(function(){
 
     Route::get('/dashboard',[DashboardController::class, 'index']);
@@ -62,3 +67,4 @@ Route::delete('/kegiatan/{id}', [KegiatanController::class, 'delete'])->name('ke
 // End Route Kegiatan
 
 });
+// End Admin Route

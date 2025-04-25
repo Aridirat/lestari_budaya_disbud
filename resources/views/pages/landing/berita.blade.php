@@ -48,7 +48,7 @@
       <p class="text-gray-600 mb-4 line-clamp-4 text-justify">
       {{ $kegiatan->deskripsi }}
       </p>
-      <a href="" type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-teal-500 text-white shadow-2xs hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-teal-bg-teal-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+      <a href="{{ route('landing.detailBerita', $kegiatan->id) }}" type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-teal-500 text-white shadow-2xs hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-teal-bg-teal-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
       Baca Selengkapnya
       </a>
     </div>
@@ -60,7 +60,7 @@
         <!-- post 1 -->
         @foreach ($kegiatans->skip(1)->take(5) as $kegiatan)
         <hr class="border-gray-200 dark:border-white">
-        <a href="#">
+        <a href="{{ route('landing.detailBerita', $kegiatan->id) }}">
           <div class="rounded-xl w-full my-2 px-2 flex flex-col md:flex-row py-2 hover:bg-gray-100">
             <img src="{{ asset($kegiatan->gambar) }}" class="block md:hidden lg:block rounded-md aspect-3/2 md:h-32 m-4 md:m-0" />
             <div class="rounded px-4">
@@ -100,7 +100,7 @@
                   {{ $kegiatan->deskripsi }}
                 </p>
               </div>
-              <a href="#" class="inline-block font-semibold py-2 rounded text-teal-500 hover:text-teal-700 mt-2 ml-auto"> Baca Selengkapnya </a>
+              <a href="{{ route('landing.detailBerita', $kegiatan->id) }}" class="inline-block font-semibold py-2 rounded text-teal-500 hover:text-teal-700 mt-2 ml-auto"> Baca Selengkapnya </a>
             </div>
           </div>
         </div>
