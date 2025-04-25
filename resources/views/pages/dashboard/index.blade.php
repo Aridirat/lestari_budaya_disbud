@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header')
+{{-- @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
                 <h1 class="text-l font-bold tracking-tight text-gray-900">Dashboard</h1>
@@ -11,7 +11,7 @@
           </ol>
         </div>
     </div>
-@endsection
+@endsection --}}
 
 @section('content')
   <div class="w-full px-6 py-6 mx-auto">
@@ -27,10 +27,6 @@
                 <div>
                   <p class="mb-0 font-sans text-xs font-semibold leading-normal uppercase dark:text-black dark:opacity-60">Today's Money</p>
                   <h5 class="mb-2 font-bold dark:text-black">$53,000</h5>
-                  {{-- <p class="mb-0 dark:text-black dark:opacity-60">
-                    <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
-                    since yesterday
-                  </p> --}}
                 </div>
               </div>
               <div class="text-right basis-1/3">
@@ -52,10 +48,6 @@
                 <div>
                   <p class="mb-0 font-sans text-xs font-semibold leading-normal uppercase dark:text-black dark:opacity-60">Today's Users</p>
                   <h5 class="mb-2 font-bold dark:text-black">2,300</h5>
-                  {{-- <p class="mb-0 dark:text-black dark:opacity-60">
-                    <span class="text-sm font-bold leading-normal text-emerald-500">+3%</span>
-                    since last week
-                  </p> --}}
                 </div>
               </div>
               <div class=" text-right basis-1/3">
@@ -77,10 +69,6 @@
                 <div>
                   <p class="mb-0 font-sans text-xs font-semibold leading-normal uppercase dark:text-black dark:opacity-60">New Clients</p>
                   <h5 class="mb-2 font-bold dark:text-black">+3,462</h5>
-                  {{-- <p class="mb-0 dark:text-black dark:opacity-60">
-                    <span class="text-xs font-bold leading-normal text-red-600">-2%</span>
-                    since last quarter
-                  </p> --}}
                 </div>
               </div>
               <div class=" text-right basis-1/3">
@@ -102,10 +90,6 @@
                 <div>
                   <p class="mb-0 font-sans text-xs font-semibold leading-normal uppercase dark:text-black dark:opacity-60">Sales</p>
                   <h5 class="mb-2 font-bold dark:text-black">$103,430</h5>
-                  {{-- <p class="mb-0 dark:text-black dark:opacity-60">
-                    <span class="text-xs font-bold leading-normal text-emerald-500">+5%</span>
-                    than last month
-                  </p> --}}
                 </div>
               </div>
               <div class=" text-right basis-1/3">

@@ -158,12 +158,12 @@
       <!-- Card -->
       @foreach ($kegiatans->take(10) as $item)
       <div class="flex hs-carousel-slide snap-center gap-6 my-5">
-        <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10 flex-none w-80" href="#">
+        <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10 flex-none w-80" href="{{ route('landing.detailBerita', $item->id) }}">
           <div class="aspect-w-16 aspect-h-9">
             <img class="w-full h-50 object-cover rounded-xl" src="{{ asset($item->gambar) }}" alt="Blog Image">
           </div>
           <h3 class="mt-2 text-lg font-bold text-gray-800 group-hover:text-teal-500 group-focus:text-teal-500 dark:text-neutral-300 dark:group-hover:text-white dark:group-focus:text-white">{{ $item->judul_kegiatan }}</h3>
-          <p class="mt-2 text-sm text-gray-400 dark:text-neutral-400">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->translatedFormat('l, d F Y') }}</p>
+          <p class="mt-2 text-sm text-gray-400 dark:text-neutral-400">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->locale('id')->translatedFormat('l, d F Y') }}</p>
         </a>
       </div>
         @endforeach
