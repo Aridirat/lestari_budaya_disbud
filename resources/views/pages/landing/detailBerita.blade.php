@@ -29,7 +29,7 @@
 <!-- End Hero -->
 
 <!-- Blog Article -->
-<div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+<div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto font-display">
     <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
       <!-- Content -->
       <div class="lg:col-span-2">
@@ -109,7 +109,7 @@
           <div class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-neutral-700">
   
               <h1 class="text-xl font-semibold text-gray-800  dark:text-neutral-200">
-                Berita Lainnya
+                Berita lainnya
               </h1>
   
             <div class="grow">
