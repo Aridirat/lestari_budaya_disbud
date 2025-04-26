@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\OpkController;
 use App\Http\Middleware\IsLogin;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/login',[AuthController::class, 'loginView']);
+Route::get('/login',[AuthController::class, 'loginView'])->name('login');
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/logout',[AuthController::class, 'logout']);
 
@@ -23,6 +23,7 @@ Route::get('/berita', [landingController::class, 'berita'])->name('landing.berit
 Route::get('/berita/{id}/detail', [landingController::class, 'detailBerita'])->name('landing.detailBerita');
 
 Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan');
+Route::get('/kebudayaan/{id}/detail', [landingController::class, 'detailTakbenda'])->name('landing.detailOpk');
 
 
 Route::get('/create_odcb', [landing_odcbController::class, 'index'])->name('landing.create_odcb');

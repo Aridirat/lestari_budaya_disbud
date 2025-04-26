@@ -15,8 +15,8 @@ class KegiatanController extends Controller
         if ($request->has('search') && $request->input('search') !== '') {
             $search = $request->input('search');
             $query->where('judul_kegiatan', 'like', "%$search%")
-                  ->orWhere('deskripsi', 'like', "%$search%")
-                  ->orWhere('lokasi_kegiatan', 'like', "%$search%");
+                ->orWhere('deskripsi', 'like', "%$search%")
+                ->orWhere('lokasi_kegiatan', 'like', "%$search%");
         }
 
         $allResults = $query->get();
