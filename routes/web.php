@@ -23,11 +23,11 @@ Route::get('/berita', [landingController::class, 'berita'])->name('landing.berit
 Route::get('/berita/{id}/detail', [landingController::class, 'detailBerita'])->name('landing.detailBerita');
 
 Route::get('/kebudayaan', [landingController::class, 'kebudayaan'])->name('landing.kebudayaan');
-Route::get('/kebudayaan/{id}/detail', [landingController::class, 'detailTakbenda'])->name('landing.detailOpk');
-
+Route::get('/kebudayaan/{id}/detail_opk', [landingController::class, 'detailTakbenda'])->name('landing.detailOpk');
 
 Route::get('/create_odcb', [landing_odcbController::class, 'index'])->name('landing.create_odcb');
 Route::post('/create_odcb',[landing_odcbController::class, 'store'])->name('landing.create_odcb.store'); 
+Route::get('/kebudayaan/{id}/detail_odcb', [landingController::class, 'detailBenda'])->name('landing.detailOdcb');
 
 Route::get('/create_opk', [landing_opkController::class, 'index'])->name('landing.create_opk');
 Route::post('/create_opk',[landing_opkController::class, 'store'])->name('landing.create_opk.store'); 

@@ -33,7 +33,16 @@ class landingController extends Controller
         $takbenda->embedUrl = $this->generateEmbedUrl($takbenda->video);
         $allTakbenda = takbenda::orderBy('created_at', 'desc')->get();
         
-        return view('pages.landing.detailOPK', compact('takbenda', 'allTakbenda'));
+        return view('pages.landing.detailOpk', compact('takbenda', 'allTakbenda'));
+    }
+
+    public function detailBenda(Request $request, $id)
+    {
+        $benda = benda::findOrFail($id);
+        $benda->embedUrl = $this->generateEmbedUrl($benda->video);
+        $allBenda = benda::orderBy('created_at', 'desc')->get();
+        
+        return view('pages.landing.detailOdcb', compact('benda', 'allBenda'));
     }
 
     public function berita(Request $request)

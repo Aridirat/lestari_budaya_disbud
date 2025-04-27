@@ -38,11 +38,39 @@
         </div>
 
         <!-- Buttons -->
-        <div class="mt-8 gap-3 flex justify-center">
-          <a class="inline-flex justify-center items-center gap-x-3 text-center bg-linear-to-tl from-cyan-600 to-teal-400 hover:from-teal-400 hover:to-cyan-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-hidden focus:from-teal-800 focus:to-cyan-800 py-3 px-4" href="#">
-            Daftar Sekarang
-            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
+        <div class="px-3 flex justify-center">
+          <div class="w-xs relative">
+            <div class="mt-8 gap-3 flex justify-center relative hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--adaptive:adaptive] [--is-collapse:true] md:[--is-collapse:false]">
+              <button id="hs-header-base-mega-menu-small" type="button" class="hs-dropdown-toggle inline-flex justify-center items-center gap-x-3 text-center bg-linear-to-tl from-cyan-600 to-teal-400 hover:from-teal-400 hover:to-cyan-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-hidden focus:from-teal-800 focus:to-cyan-800 py-3 px-4" aria-haspopup="menu" aria-expanded="false" aria-label="Mega Menu" href="#">
+                Daftar Sekarang
+                <svg class="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:rotate-0 duration-300 shrink-0 size-4 ms-auto md:ms-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 absolute left-0 md:w-80 hidden z-10 top-full md:bg-white md:rounded-lg md:shadow-md before:absolute before:-top-4 before:start-0 before:w-full before:h-5 dark:md:bg-neutral-800" role="menu" aria-orientation="vertical" aria-labelledby="hs-header-base-mega-menu-small">
+                <div class="py-1 md:px-1 space-y-0.5">
+                  <!-- Link -->
+                  <a class="p-3 flex gap-x-4 focus:outline-hidden focus:bg-gray-100 rounded-lg dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 {{ request()->is('create_opk') ? 'bg-teal-200 text-gray-800' : '' }}" href="/create_opk">
+                    <svg class="shrink-0 size-4 mt-1 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
+                    <div class="grow">
+                      <span class="block font-semibold text-sm text-gray-800 dark:text-neutral-200">Daftar OPK/WBTB</span>
+                      <p class="text-sm text-gray-500 dark:text-neutral-500">Pendaftaran Kebudayaan Takbenda</p>
+                    </div>
+                  </a>
+                  <!-- End Link -->
+                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
+                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
+                  <!-- Link -->
+                  <a class="p-3 flex gap-x-4 focus:outline-hidden focus:bg-gray-100 rounded-lg dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 {{ request()->is('create_odcb') ? 'bg-teal-200 text-gray-800' : '' }}" href="/create_odcb">
+                    <svg class="shrink-0 size-4 mt-1 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+                    <div class="grow">
+                      <span class="block font-semibold text-sm text-gray-800 dark:text-neutral-200">ODCB/CB</span>
+                      <p class="text-sm text-gray-500 dark:text-neutral-500">Pendaftaran Kebudayaan Benda</p>
+                    </div>
+                  </a>
+                  <!-- End Link -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- End Buttons -->
 
