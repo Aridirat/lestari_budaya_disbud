@@ -46,7 +46,7 @@
               {{ $item->nama_obyek }}
             </h3>
             <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">{{ $item->lokasi_penemuan }}</p>
-            <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
+            <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="{{ route('landing.detailOdcb', $item->id) }}">
               Detail
             </a>
           </div>
