@@ -13,12 +13,25 @@
   <link rel="stylesheet" href="{{ asset('templates/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css') }}">
+
+  <!-- Sweet Alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
     <a href="../../index2.html"><b>Lesbud Login</b></a>
   </div>
+
+  @if (session('error-unauthorized'))
+  <script>
+      Swal.fire({
+        title: "Terjadi Kesalahan",
+        text: "{{ session('error-unauthorized') }}",
+        icon: "error"
+      });
+  </script>
+  @endif
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">

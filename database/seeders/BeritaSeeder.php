@@ -20,6 +20,8 @@ class BeritaSeeder extends Seeder
             "lokasi_kegiatan" => "Badung",
             "tanggal_kegiatan" => "2025-04-15",
             "dokumen_kajian" => "kajian.pdf",
+            'foto' => 'contoh.jpg', 
+
         ]);
     }
 }

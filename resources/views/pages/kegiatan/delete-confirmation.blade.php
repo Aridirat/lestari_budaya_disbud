@@ -1,6 +1,6 @@
-<div class="modal fade" id="modal-delete-{{ $kegiatans->id }}">
+<div class="modal fade" id="modal-delete-{{ $kegiatan->id }}">
     <div class="modal-dialog">
-        <form action="/kegiatan/{{ $kegiatans->id }}" method="post">
+        <form action="/kegiatan/{{ $kegiatan->id }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content">

@@ -21,6 +21,7 @@ class takbenda extends Model
         'kode_pos',
         'email',
         'foto',
+        'foto_galeri',
         'video',
         'dokumen_kajian'
     ];

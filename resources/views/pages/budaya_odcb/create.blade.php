@@ -2,15 +2,15 @@
 
 @section('header')
 <div class="row mb-2">
-    <div class="col-sm-6">
+    <div class="col-sm-12 text-center">
       <h1>Tambah Data ODCB</h1>
     </div>
-    <div class="col-sm-6">
+    {{-- <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary">Beranda</a></li>
         <li class="breadcrumb-item active">ODCB</li>
       </ol>
-    </div>
+    </div> --}}
 </div>
 @endsection
 
@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label>Nama Obyek</label>
-                        <input type="text" name="nama_obyek" class="form-control @error('nama_obyek') is-invalid @enderror" required value="{{ old('nama_obyek') }}">
+                        <input type="text" name="nama_obyek" class="form-control @error('nama_obyek') is-invalid @enderror" required value="{{ old('nama_obyek') }}" placeholder="Masukkan nama obyek">
                         @error('nama_obyek')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" placeholder="Masukkan jdeskripsi">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -53,7 +53,7 @@
 
                     <div class="form-group">
                         <label>Lokasi Penemuan</label>
-                        <input type="text" name="lokasi_penemuan" class="form-control @error('lokasi_penemuan') is-invalid @enderror" required>
+                        <input type="text" name="lokasi_penemuan" class="form-control @error('lokasi_penemuan') is-invalid @enderror" required placeholder="Masukkan lokasi penemuan">
                         @error('lokasi_penemuan')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -61,7 +61,7 @@
 
                     <div class="form-group">
                         <label>Nama Pemilik</label>
-                        <input type="text" name="nama_pemilik" class="form-control @error('nama_pemilik') is-invalid @enderror" required value="{{ old('nama_pemilik') }}">
+                        <input type="text" name="nama_pemilik" class="form-control @error('nama_pemilik') is-invalid @enderror" required value="{{ old('nama_pemilik') }}" placeholder="Masukkan nama pemilik">
                         @error('nama_pemilik')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label>Alamat Pemilik</label>
-                        <input type="text" name="alamat_pemilik" class="form-control @error('alamat_pemilik') is-invalid @enderror" required value="{{ old('alamat_pemilik') }}">
+                        <input type="text" name="alamat_pemilik" class="form-control @error('alamat_pemilik') is-invalid @enderror" required value="{{ old('alamat_pemilik') }}" placeholder="Masukkan alamat pemilik">
                         @error('alamat_pemilik')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -89,9 +89,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Foto</label>
+                        <label>Foto Cover</label>
                         <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" accept="image/*" required>
                         @error('foto')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Foto Galeri</label>
+                        <input type="file" name="foto_galeri" class="form-control-file @error('foto_galeri') is-invalid @enderror" accept="image/*" required>
+                        @error('foto_galeri')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -105,7 +113,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('odcb.index') }}" class="btn btn-outline-secondary mr-2">Batal</a>
+                        <a href="{{ route('odcb.index') }}" class="btn btn-outline-danger mr-2">Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
