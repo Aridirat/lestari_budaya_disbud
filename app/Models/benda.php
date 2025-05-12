@@ -21,6 +21,7 @@ class benda extends Model
         'alamat_pemilik',
         'status_pemilik',
         'foto',
+        'foto_galeri',
         'dokumen_kajian'
     ];
 }

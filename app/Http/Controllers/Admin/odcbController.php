@@ -40,7 +40,6 @@ class OdcbController extends Controller
             'status_pemilik' => 'required|in:Pribadi,Pemerintah',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
-            'kunci_token' => 'required|string',
         ]);
 
         $fotoPath = $request->file('foto')->store('uploads', 'public');
@@ -54,7 +53,6 @@ class OdcbController extends Controller
             'nama_pemilik' => $validated['nama_pemilik'],
             'alamat_pemilik' => $validated['alamat_pemilik'],
             'status_pemilik' => $validated['status_pemilik'],
-            'kunci_token' => $validated['kunci_token'],
             'foto' => $fotoPath,
             'dokumen_kajian' => $dokumenPath,
             'created_at' => now(),

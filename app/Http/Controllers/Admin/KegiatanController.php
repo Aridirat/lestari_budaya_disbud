@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KegiatanController extends Controller
 {
@@ -16,7 +18,12 @@ class KegiatanController extends Controller
             $search = $request->input('search');
             $query->where('judul_kegiatan', 'like', "%$search%")
                   ->orWhere('deskripsi', 'like', "%$search%")
-                  ->orWhere('lokasi_kegiatan', 'like', "%$search%");
+                  ->orWhere('lokasi_kegiatan', 'like', "%$search%")
+                  ->orWhere('tanggal_kegiatan', 'like', "%$search%");
+        }
+
+        if ($request->has('tanggal')) {
+            $query->whereDate('tanggal_kegiatan', $request->input('tanggal'));
         }
 
         $allResults = $query->get();
@@ -24,7 +31,7 @@ class KegiatanController extends Controller
 
         return view('pages.kegiatan.index', [
             "kegiatans" => $kegiatans,
-            "allResults" => $allResults,
+            "allResults" => $allResults,    
             "search" => $request->input('search', '')
         ]);
     }
@@ -37,24 +44,57 @@ class KegiatanController extends Controller
     {
         $validated = $request->validate([
             "judul_kegiatan" => "required|min:3",
-            "deskripsi" => "nullable",
+            "deskripsi" => "required|string",
             "lokasi_kegiatan" => "required",
             "tanggal_kegiatan" => "required|date",
-            "dokumen_kajian" => "nullable|mimes:pdf,doc,docx|max:2048",
-            "gambar" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
+            "dokumen_kajian" => "required|mimes:pdf|max:5048",
+            "gambar" => "required|image|mimes:jpeg,png,jpg|max:5048",
+        ], [
+            "judul_kegiatan.required" => "Judul kegiatan harus diisi!",
+            "judul_kegiatan.min" => "Minimal 3 karakter!",
+            "deskripsi.required" => "Deskripsi harus diisi!",
+            "lokasi_kegiatan.required" => "Lokasi kegiatan harus diisi!",
+            "tanggal_kegiatan.required" => "Tanggal kegiatan harus diisi!",
+            "dokumen_kajian.required" => "Dokumen kajian harus diisi!",
+            "dokumen_kajian.mimes" => "Jenis dokumen harus pdf!",
+            "dokumen_kajian.max" => "Ukuran dokumen maksimal 5mb!",
+            "gambar.required" => "Foto harus diisi!",
+            "gambar.mimes" => "Jenis foto harus jpeg, png, atau jpg!",
+            "gambar.max" => "Ukuran foto maksimal 5mb!",
         ]);
 
         if ($request->hasFile('dokumen_kajian')) {
-            $docName = $request->file('dokumen_kajian')->getClientOriginalName();
-            $request->file('dokumen_kajian')->move(public_path('uploads/kegiatan/dokumen'), $docName);
-            $validated['dokumen_kajian'] = 'uploads/kegiatan/dokumen/' . $docName;
+            // $docName = date('Y-m-d').$request->file('dokumen_kajian')->getClientOriginalName();
+            // $request->file('dokumen_kajian')->move(public_path('uploads/kegiatan/dokumen'), $docName);
+            // $validated['dokumen_kajian'] = 'uploads/kegiatan/dokumen/' . $docName;
+
+            $dokumen = $request->file('dokumen_kajian');
+
+             // Buat nama file unik (optional bisa pakai uniqid juga)
+             $filename = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
+             $path = 'uploads/kegiatan/dokumen_kajian/' . $filename;
+         
+             // Simpan ke disk 'public'
+             Storage::disk('public')->put($path, file_get_contents($dokumen));
+         
+             // Simpan hanya nama filenya atau path relatif, sesuai kebutuhan
+             $validated['dokumen_kajian'] = $filename; // atau $path kalau kamu mau simpan path lengkap
         }
 
         if ($request->hasFile('gambar')) {
-            $imageName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move(public_path('uploads/kegiatan'), $imageName);
-            $validated['gambar'] = 'uploads/kegiatan/' . $imageName;
+            $photo = $request->file('gambar');
+            
+            // Buat nama file unik (optional bisa pakai uniqid juga)
+            $filename = date('Y-m-d') . '_' . $photo->getClientOriginalName();
+            $path = 'uploads/kegiatan/gambar/' . $filename;
+        
+            // Simpan ke disk 'public'
+            Storage::disk('public')->put($path, file_get_contents($photo));
+        
+            // Simpan hanya nama filenya atau path relatif, sesuai kebutuhan
+            $validated['gambar'] = $filename; // atau $path kalau kamu mau simpan path lengkap
         }
+        
 
         Kegiatan::create($validated);
 
@@ -67,55 +107,106 @@ class KegiatanController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            "judul_kegiatan" => "required|min:3",
-            "deskripsi" => "nullable",
-            "lokasi_kegiatan" => "required",
-            "tanggal_kegiatan" => "required|date",
-            "dokumen_kajian" => "nullable|mimes:pdf,doc,docx|max:2048",
-            "gambar" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
-        ]);
-    
-        $kegiatan = Kegiatan::findOrFail($id);
+{
+    $validated = $request->validate([
+        "judul_kegiatan" => "required|min:3",
+        "deskripsi" => "required|string",
+        "lokasi_kegiatan" => "required",
+        "tanggal_kegiatan" => "required|date",
+        "dokumen_kajian" => "nullable|mimes:pdf|max:5048",
+        "gambar" => "nullable|image|mimes:jpeg,png,jpg|max:5048",
+    ], [
+        "judul_kegiatan.required" => "Judul kegiatan harus diisi!",
+            "judul_kegiatan.min" => "Minimal 3 karakter!",
+            "deskripsi.required" => "Deskripsi harus diisi!",
+            "lokasi_kegiatan.required" => "Lokasi kegiatan harus diisi!",
+            "tanggal_kegiatan.required" => "Tanggal kegiatan harus diisi!",
+            "dokumen_kajian.required" => "Dokumen kajian harus diisi!",
+            "dokumen_kajian.mimes" => "Jenis dokumen harus pdf!",
+            "dokumen_kajian.max" => "Ukuran dokumen maksimal 5mb!",
+            "gambar.required" => "Foto harus diisi!",
+            "gambar.mimes" => "Jenis foto harus jpeg, png, atau jpg!",
+            "gambar.max" => "Ukuran foto maksimal 5mb!",
+    ]);
 
-        if ($request->hasFile('dokumen_kajian')) {
-            if ($kegiatan->dokumen_kajian && file_exists(public_path($kegiatan->dokumen_kajian))) {
-                unlink(public_path($kegiatan->dokumen_kajian));
-            }
-            $docName = $request->file('dokumen_kajian')->getClientOriginalName();
-            $request->file('dokumen_kajian')->move(public_path('uploads/kegiatan/dokumen'), $docName);
-            $validated['dokumen_kajian'] = 'uploads/kegiatan/dokumen/' . $docName;
+    $kegiatan = Kegiatan::findOrFail($id);
+
+    // Handle dokumen_kajian
+    if ($request->hasFile('dokumen_kajian')) {
+        // Hapus file lama
+        if ($kegiatan->dokumen_kajian && Storage::disk('public')->exists('uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian)) {
+            Storage::disk('public')->delete('uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian);
         }
-    
-        if ($request->hasFile('gambar')) {
-            if ($kegiatan->gambar && file_exists(public_path($kegiatan->gambar))) {
-                unlink(public_path($kegiatan->gambar));
-            }
-            $imageName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move(public_path('uploads/kegiatan'), $imageName);
-            $validated['gambar'] = 'uploads/kegiatan/' . $imageName;
-        }
 
-        $kegiatan->update($validated);
-
-        return redirect('/kegiatan')->with('success', 'Berhasil Mengubah Kegiatan');
+        $dokumen = $request->file('dokumen_kajian');
+        $filename = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
+        $path = 'uploads/kegiatan/dokumen_kajian/' . $filename;
+        Storage::disk('public')->put($path, file_get_contents($dokumen));
+        $validated['dokumen_kajian'] = $filename;
     }
 
-    public function delete($id)
-    {
-        $kegiatan = Kegiatan::findOrFail($id);
-
-        if ($kegiatan->dokumen_kajian && file_exists(public_path($kegiatan->dokumen_kajian))) {
-            unlink(public_path($kegiatan->dokumen_kajian));
+    // Handle gambar
+    if ($request->hasFile('gambar')) {
+        if ($kegiatan->gambar && Storage::disk('public')->exists('uploads/kegiatan/gambar/' . $kegiatan->gambar)) {
+            Storage::disk('public')->delete('uploads/kegiatan/gambar/' . $kegiatan->gambar);
         }
 
-        if ($kegiatan->gambar && file_exists(public_path($kegiatan->gambar))) {
-            unlink(public_path($kegiatan->gambar));
-        }
-
-        $kegiatan->delete();
-
-        return redirect('/kegiatan')->with('success', 'Berhasil Menghapus Kegiatan');
+        $gambar = $request->file('gambar');
+        $imgName = date('Y-m-d') . '_' . $gambar->getClientOriginalName();
+        $imgPath = 'uploads/kegiatan/gambar/' . $imgName;
+        Storage::disk('public')->put($imgPath, file_get_contents($gambar));
+        $validated['gambar'] = $imgName;
     }
+
+    $kegiatan->update($validated);
+
+    return redirect('/kegiatan')->with('success', 'Berhasil Mengubah Kegiatan');
+}
+
+   public function delete($id)
+{
+    $kegiatan = Kegiatan::findOrFail($id);
+
+    if ($kegiatan->dokumen_kajian && Storage::disk('public')->exists('uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian)) {
+        Storage::disk('public')->delete('uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian);
+    }
+
+    if ($kegiatan->gambar && Storage::disk('public')->exists('uploads/kegiatan/gambar/' . $kegiatan->gambar)) {
+        Storage::disk('public')->delete('uploads/kegiatan/gambar/' . $kegiatan->gambar);
+    }
+
+    $kegiatan->delete();
+
+    return redirect('/kegiatan')->with('success', 'Berhasil Menghapus Kegiatan');
+}
+
+// Fungsi untuk cetak PDF
+public function exportPdf(Request $request)
+{
+    // Ambil data kegiatan berdasarkan filter yang diterapkan
+    $query = Kegiatan::query();
+
+    if ($request->has('search') && $request->input('search') !== '') {
+        $search = $request->input('search');
+        $query->where('judul_kegiatan', 'like', "%$search%")
+              ->orWhere('deskripsi', 'like', "%$search%")
+              ->orWhere('lokasi_kegiatan', 'like', "%$search%")
+              ->orWhere('tanggal_kegiatan', 'like', "%$search%");
+    }
+
+    if ($request->has('tanggal') && $request->input('tanggal') !== '') {
+        $query->whereDate('tanggal_kegiatan', $request->input('tanggal'));
+    }
+
+    $kegiatans = $query->get();
+
+    // Load view PDF dengan data yang sudah difilter
+    $pdf = PDF::loadView('pages.kegiatan.pdf', ['kegiatans' => $kegiatans]);
+
+    // Unduh atau tampilkan PDF
+    return $pdf->download('data_kegiatan.pdf');
+}
+
+
+
 }

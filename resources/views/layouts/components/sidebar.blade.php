@@ -1,3 +1,4 @@
+{{-- Object opsional --}}
 @php
     $menus = [
         (object) [
@@ -9,9 +10,15 @@
         (object) [
             "title" => "OPK", 
             "path" => "opk", 
-            "icon" => "fas fa-book",
+            "icon" => "fas fa-theater-masks",
             "active" => request()->is('opk*')
         ],
+        // (object) [
+        //     "title" => "OPK", 
+        //     "path" => "opk", 
+        //     "icon" => "fas fa-book",
+        //     "active" => request()->is('opk*')
+        // ],
         (object) [
             "title" => "ODCB", 
             "path" => "odcb", 
@@ -42,7 +49,16 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar text-decoration-nor">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ asset('templates/dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="/" class="d-block text-decoration-none">{{ auth()->user()->name }}</a>
+        </div>
+      </div>
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -53,8 +69,16 @@
                             <p>
                                 {{ $menu->title }}
                                 @if($menu->active && request()->segment(2))
-                                    <span class="right badge badge-light text-dark">{{ ucfirst(request()->segment(2)) }}</span>
-                                @endif
+                                @php
+                                    $sub = request()->segment(2);
+                                    $subLabel = match (true) {
+                                        $sub === 'create' => 'Tambah',
+                                        is_numeric($sub) => 'Edit',
+                                        default => strtoupper($sub)
+                                    };
+                                @endphp
+                                <span class="right badge badge-light text-dark">{{ $subLabel }}</span>
+                            @endif
                             </p>
                         </a>
                     </li>

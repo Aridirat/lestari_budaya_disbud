@@ -39,6 +39,18 @@
                 @enderror
             </div>
             <div class="form-group">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea 
+                name="deskripsi"
+                id="deskripsi" 
+                cols="30" rows="5" 
+                class="form-control @error('deskripsi') is-invalid @enderror"
+                placeholder="Masukkan deskripsi kegiatan">{{ old('deskripsi') }}</textarea>
+                @error('deskripsi')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="lokasi_kegiatan" class="form-label">Lokasi Kegiatan</label>
                 <input type="text" name="lokasi_kegiatan" id="lokasi_kegiatan" class="form-control @error('lokasi_kegiatan') is-invalid @enderror" value="{{ old('lokasi_kegiatan') }}" placeholder="Lokasi">
                 @error('lokasi_kegiatan')
@@ -66,27 +78,39 @@
             </div>
             <div class="form-group">
                 <label for="dokumen_kajian" class="form-label">Dokumen Kajian (Opsional)</label>
-                <input type="file" name="dokumen_kajian" class="form-control-file @error('dokumen_kajian') is-invalid @enderror" accept=".pdf,.doc,.docx" >
+                <input type="file" name="dokumen_kajian" id="dokumen_kajian" class="form-control @error('dokumen_kajian') is-invalid @enderror" accept=".pdf" >
                 @error('dokumen_kajian')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
+            
+
+
             <div class="form-group ">
                 <label for="gambar" class="form-label">Foto Kegiatan</label>
-                <input type="file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" accept="image/*"> 
+                <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror" accept="image/*" > 
                 @error('gambar')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-        </div>
-        <div class="card-footer">
+
+            {{-- <h2>Input group only</h2>
+
+            <div class="input-group mb-4">
+            <i class="bi bi-calendar-date input-group-text"></i>
+            <input type="text" class="datepicker_input form-control" placeholder="Date input 3 placeholder" required aria-label="Date input 3 (using aria-label)">
+            </div> --}}
             <div class="d-flex justify-content-end">
-                <a href="{{ route('kegiatan.index') }}" class="btn btn-sm btn-outline-danger mr-2">Batal</a>
+                <a href="{{ route('kegiatan.index') }}" class="btn btn btn-outline-danger mr-2">Batal</a>
                 <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
             </div>
         </div>
+        
     </div>
 </form>
 </div>
 </div>
+
+
 @endsection
+
