@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
+    <title>Daftar Kebudayaan Takbenda</title>
 </head>
 <body>
 
@@ -189,6 +190,15 @@
           </div>
         </div>
 
+      {{-- <div class="col-span-7">
+          <p class="text-sm/6 text-gray-400">Sisa token Anda: <span id="remaining-tokens">3</span></p>
+          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+              <div id="token-progress" class="bg-teal-500 h-2.5 rounded-full" style="width: 100%;"></div>
+          </div>
+          <p class="text-sm/6 text-gray-400">Setiap pengisian formulir akan mengurangi 1 token.</p>
+          <button id="reset-token" class="mt-3 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700">Reset Token</button>
+      </div> --}}
+
         <div class="col-end-6 flex justify-end">
         <a href="{{ route('landing.index') }}" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-gray-500 text-white hover:bg-gray-700 focus:outline-hidden focus:bg-gray-700 disabled:opacity-50 disabled:pointer-events-none">Batal</a>
         </div>
@@ -265,6 +275,35 @@ function removeFile() {
   document.getElementById('file-placeholder').style.display = 'block';
 }
 
+// Token management
+const maxTokens = 3;
+let remainingTokens = localStorage.getItem('remainingTokens') || maxTokens;
+const tokenProgress = document.getElementById('token-progress');
+const remainingTokensDisplay = document.getElementById('remaining-tokens');
+const tokenProgressWidth = 100 / maxTokens;
+
+function updateTokenProgress() {
+  remainingTokens--;
+  if (remainingTokens < 0) {
+    alert('Token habis! Anda tidak dapat mengisi formulir lagi dengan token ini.');
+    return false;
+  }
+  localStorage.setItem('remainingTokens', remainingTokens);
+  tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
+  remainingTokensDisplay.textContent = remainingTokens;
+  return true;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
+  remainingTokensDisplay.textContent = remainingTokens;
+});
+
+document.querySelector('form').addEventListener('submit', function(event) {
+  if (!updateTokenProgress()) {
+    event.preventDefault(); // Prevent form submission if tokens are exhausted
+  }
+});
 
 </script>
 
