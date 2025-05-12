@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
     <title>Gedog Budaya Badung</title>
 </head>
 <body class="font-display">
@@ -91,7 +92,7 @@
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 font-quicksand">
     @foreach ($takbenda->take(3) as $item)
       <!-- Card -->
-      <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="#">
+      <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="{{ route('landing.detailOpk', $item->id) }}">
         <div class="aspect-w-16 aspect-h-10">
           <img class="w-100 h-80 object-cover rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul_opk }}">
         </div>
@@ -113,7 +114,7 @@
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 my-10 font-quicksand">
   @foreach ($benda->take(3) as $item)
     <!-- Card -->
-    <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="#">
+    <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="{{ route('landing.detailOdcb', $item->id) }}">
       <div class="aspect-w-16 aspect-h-10">
         <img class="w-100 h-80 object-cover rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_obyek }}">
       </div>

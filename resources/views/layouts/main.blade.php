@@ -23,7 +23,7 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css') }}">
 <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
 {{-- End Styling AdminLTE --}}
 
 {{-- Styling dengan Argon Tailwind --}}

@@ -23,6 +23,12 @@
             "path" => "kegiatan", 
             "icon" => "fas fa-calendar-alt",
             "active" => request()->is('kegiatan*')
+        ],
+        (object) [
+            "title" => "Halaman utama", 
+            "path" => "/", 
+            "icon" => "fas fa-exchange-alt",
+            "active" => true
         ]
     ];
 @endphp

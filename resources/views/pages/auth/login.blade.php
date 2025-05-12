@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LesBud Log in</title>
+  <link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
+  <title>Login Gedog Budaya</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
