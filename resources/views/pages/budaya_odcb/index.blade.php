@@ -1,20 +1,18 @@
 @extends('layouts.main')
 
-{{-- @section('header')
-<div class="row mb-2">
-    <div class="col-sm-6">
-      <h1>ODCB</h1>
-    </div>
-    <div class="col-sm-6">
-      <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-teal">Beranda</a></li>
-        <li class="breadcrumb-item active text-secondary">ODCB</li>
-      </ol>
-    </div>
-</div>
-@endsection --}}
+
 
 @section('content')
+@if (session('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil",
+        text: "{{ session('success') }}",
+        icon: "success"
+      });
+    </script>
+@endif
+
     {{-- Tabel Start --}}
   <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
@@ -25,7 +23,10 @@
               Tambah Data ODCB
             </a>
           </div>
-          <div class="">
+          <div class="flex space-x-2">
+            <a href="{{ route('odcb.pdf', ['search' => request('search'), 'tanggal' => request('tanggal')]) }}" target="_blank" class="btn btn-sm btn-danger">
+              <i class="fas fa-file-pdf"></i> Cetak PDF
+          </a>
                       <form action="{{ route('odcb.index') }}" method="GET" class="d-flex">
                         <input type="text" name="search" class="form-control form-control-sm mr-2" placeholder="Cari..." value="{{ request('search') }}">
                         <button type="submit" class="btn btn-sm bg-teal">
@@ -165,32 +166,32 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body overflow-auto" style="max-height: 85vh;">
         <table class="table table-bordered">
             <tr>
                 <th>Nama Obyek</th>
-                <td class="text-justify">{{ $item->nama_obyek }}</td>
+                <td class="text-justify text-wrap text-break">{{ $item->nama_obyek }}</td>
             </tr>
             
             <tr>
                 <th>Kategori</th>
-                <td class="text-justify"> {{ $item->kategori }}</td>
+                <td class="text-justify text-wrap text-break"> {{ $item->kategori }}</td>
             </tr>
             <tr>
                 <th>Lokasi Penemuan</th>
-                <td class="text-justify"> {{ $item->lokasi_penemuan }}</td>
+                <td class="text-justify text-wrap text-break"> {{ $item->lokasi_penemuan }}</td>
             </tr>
             <tr>
                 <th>Nama Pemilik</th>
-                <td class="text-justify">{{ $item->nama_pemilik }}</td>
+                <td class="text-justify text-wrap text-break">{{ $item->nama_pemilik }}</td>
             </tr>
             <tr>
                 <th>Alamat</th>
-                <td class="text-justify">{{ $item->alamat_pemilik }}</td>
+                <td class="text-justify text-wrap text-break">{{ $item->alamat_pemilik }}</td>
             </tr>
             <tr>
                 <th>Status</th>
-                <td class="text-justify">{{ $item->status_pemilik }}</td>
+                <td class="text-justify text-wrap text-break">{{ $item->status_pemilik }}</td>
             </tr>
             <tr>
                 <th>Dokumen Kajian</th>
@@ -210,7 +211,7 @@
                 <th>Foto Cover</th>
                 <td class="text-center d-flex justify-content-center align-items-center">
                     @if($item->foto)
-                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px;">
+                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px; max-width: 100%;">
                     @else
                         Tidak ada gambar
                     @endif
@@ -220,7 +221,7 @@
                 <th>Foto Galeri</th>
                 <td class="text-center d-flex justify-content-center align-items-center">
                     @if($item->foto_galeri)
-                        <img src="{{ asset('storage/' . $item->foto_galeri) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px;">
+                        <img src="{{ asset('storage/' . $item->foto_galeri) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px; max-width: 100%;">
                     @else
                         Tidak ada gambar
                     @endif
@@ -228,7 +229,7 @@
             </tr>
             <tr>
                 <th>Deskripsi</th>
-                <td class="text-justify">{{ $item->deskripsi ?? '-' }}</td>
+                <td class="text-justify text-wrap text-break">{{ $item->deskripsi ?? '-' }}</td>
             </tr>
         </table>
       </div>

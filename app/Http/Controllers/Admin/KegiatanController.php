@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KegiatanController extends Controller
 {
@@ -178,6 +179,34 @@ class KegiatanController extends Controller
 
     return redirect('/kegiatan')->with('success', 'Berhasil Menghapus Kegiatan');
 }
+
+// Fungsi untuk cetak PDF
+public function exportPdf(Request $request)
+{
+    // Ambil data kegiatan berdasarkan filter yang diterapkan
+    $query = Kegiatan::query();
+
+    if ($request->has('search') && $request->input('search') !== '') {
+        $search = $request->input('search');
+        $query->where('judul_kegiatan', 'like', "%$search%")
+              ->orWhere('deskripsi', 'like', "%$search%")
+              ->orWhere('lokasi_kegiatan', 'like', "%$search%")
+              ->orWhere('tanggal_kegiatan', 'like', "%$search%");
+    }
+
+    if ($request->has('tanggal') && $request->input('tanggal') !== '') {
+        $query->whereDate('tanggal_kegiatan', $request->input('tanggal'));
+    }
+
+    $kegiatans = $query->get();
+
+    // Load view PDF dengan data yang sudah difilter
+    $pdf = PDF::loadView('pages.kegiatan.pdf', ['kegiatans' => $kegiatans]);
+
+    // Unduh atau tampilkan PDF
+    return $pdf->download('data_kegiatan.pdf');
+}
+
 
 
 }

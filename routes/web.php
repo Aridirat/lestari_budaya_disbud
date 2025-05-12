@@ -29,6 +29,8 @@ Route::post('/odcb', [OdcbController::class, 'store'])->name('odcb.store'); // S
 Route::get('/odcb/{id}/edit', [OdcbController::class, 'edit'])->name('odcb.edit'); // Form edit
 Route::put('/odcb/{id}', [OdcbController::class, 'update'])->name('odcb.update'); // Update data
 Route::delete('/odcb/{id}', [OdcbController::class, 'destroy'])->name('odcb.destroy'); //delete data
+Route::get('/odcb/pdf', [OdcbController::class, 'exportPdf'])->name('odcb.pdf');
+
 // End Route ODCB
 
 
@@ -39,6 +41,7 @@ Route::post('/opk', [OpkController::class, 'store'])->name('opk.store'); // Simp
 Route::get('/opk/{id}/edit', [OpkController::class, 'edit'])->name('opk.edit'); // Form edit
 Route::put('/opk/{id}', [OpkController::class, 'update'])->name('opk.update'); // Update data
 Route::delete('/opk/{id}', [OpkController::class, 'destroy'])->name('opk.destroy'); //delete data
+Route::get('/opk/pdf', [OpkController::class, 'exportPdf'])->name('opk.pdf');
 // End Route OPK
 
 
@@ -49,6 +52,7 @@ Route::post('/kegiatan', [KegiatanController::class, 'store'])->name('kegiatan.s
 Route::get('/kegiatan/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit'); // Form edit
 Route::put('/kegiatan/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Update data
 Route::delete('/kegiatan/{id}', [KegiatanController::class, 'delete'])->name('kegiatan.delete'); //delete data
+Route::get('/kegiatan/pdf', [KegiatanController::class, 'exportPdf'])->name('kegiatan.pdf');
 
 // End Route Kegiatan
 

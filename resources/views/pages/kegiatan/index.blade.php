@@ -1,18 +1,6 @@
 @extends('layouts.main')
 
-{{-- @section('header')
-<div class="row mb-2">
-    <div class="col-sm-6">
-      <h1>KEGIATAN DINAS KEBUDAYAAN</h1>
-    </div>
-    <div class="col-sm-6">
-      <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-teal">Beranda</a></li>
-        <li class="breadcrumb-item active">KEGIATAN</li>
-      </ol>
-    </div>
-</div>
-@endsection --}}
+
 
 
 @section('content')
@@ -36,7 +24,10 @@
             Tambah Data Kegiatan
           </a>
         </div>
-        <div >
+        <div class="flex space-x-2">
+          <a href="{{ route('kegiatan.pdf', ['search' => request('search'), 'tanggal' => request('tanggal')]) }}" target="_blank" class="btn btn-sm btn-danger">
+            <i class="fas fa-file-pdf"></i> Cetak PDF
+        </a>
                     <form action="{{ route('kegiatan.index') }}" method="GET" class="d-flex">
                       <input type="text" name="search" class="form-control form-control-sm mr-2" placeholder="Cari..." value="{{ request('search') }}">
                       <button type="submit" class="btn btn-sm bg-teal">
@@ -105,9 +96,9 @@
                 </td>              
                 <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                   <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">@if($kegiatan->dokumen_kajian)
-                    <a href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank" class="btn btn-sm bg-teal" data-toggle="modal" data-target="#dokumenModal{{ $kegiatan->id }}"><i class="fas fa-solid fa-file pe-1"></i>Lihat</a>
+                    <a href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank" class="btn btn-sm bg-teal" ><i class="fas fa-solid fa-file pe-1"></i>Lihat</a>
 
-                    <!-- Modal Dokumen -->
+                    {{-- <!-- Modal Dokumen -->
                     <div class="modal fade" id="dokumenModal{{ $kegiatan->id }}" tabindex="-1" role="dialog" aria-labelledby="dokumenLabel{{ $kegiatan->id }}" aria-hidden="true">
                       <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -122,7 +113,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
                 @else
                 <span>Tidak ada dokumen</span>
                 @endif</span>
@@ -143,20 +134,20 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <div class="modal-body">
+                          <div class="modal-body overflow-auto" style="max-height: 85vh;">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Judul Kegiatan</th>
-                                    <td class="text-justify">{{ $kegiatan->judul_kegiatan }}</td>
+                                    <td class="text-justify text-wrap text-break">{{ $kegiatan->judul_kegiatan }}</td>
                                 </tr>
                                 
                                 <tr>
                                     <th>Lokasi Kegiatan</th>
-                                    <td class="text-justify">{{ $kegiatan->lokasi_kegiatan }}</td>
+                                    <td class="text-justify text-wrap text-break">{{ $kegiatan->lokasi_kegiatan }}</td>
                                 </tr>
                                 <tr>
                                     <th>Tanggal Kegiatan</th>
-                                    <td class="text-justify">{{ $kegiatan->tanggal_kegiatan }}</td>
+                                    <td class="text-justify text-wrap text-break">{{ $kegiatan->tanggal_kegiatan }}</td>
                                 </tr>
                                 <tr>
                                     <th>Dokumen Kajian</th>
@@ -176,7 +167,7 @@
                                     <th>Foto</th>
                                     <td class="text-center d-flex justify-content-center align-items-center">
                                         @if($kegiatan->gambar)
-                                            <img src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" alt="Foto Kegiatan" class="img-fluid" style="max-height: 300px;">
+                                            <img src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" alt="Foto Kegiatan" class="img-fluid" style="max-height: 300px; max-width: 100%;">
                                         @else
                                             Tidak ada gambar
                                         @endif
@@ -184,7 +175,7 @@
                                 </tr>
                                 <tr>
                                     <th>Deskripsi</th>
-                                    <td class="text-justify">{{ $kegiatan->deskripsi ?? '-' }}</td>
+                                    <td class="text-justify text-wrap text-break">{{ $kegiatan->deskripsi ?? '-' }}</td>
                                 </tr>
                             </table>
                           </div>

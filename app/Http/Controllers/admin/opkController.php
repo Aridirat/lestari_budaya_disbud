@@ -7,6 +7,7 @@ use App\Models\takbenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OpkController extends Controller
 {
@@ -83,7 +84,7 @@ class OpkController extends Controller
             "foto_galeri.required" => "Foto galeri harus diisi!",
             "foto_galeri.mimes" => "Jenis foto galeri harus jpeg, png, atau jpg!",
             "foto_galeri.max" => "Ukuran foto galeri maksimal 5mb!",
-            "video.required" => "Video harus diisi!",
+            "video.required" => "Link video harus diisi!",
             "dokumen_kajian.mimes" => "Jenis dokumen harus pdf!",
             "dokumen_kajian.max" => "Ukuran dokumen maksimal 5mb!",
             
@@ -233,4 +234,24 @@ class OpkController extends Controller
     
         return redirect()->route('opk.index')->with('success', 'Data berhasil dihapus');
     }
+
+    public function exportPdf(Request $request)
+{
+    $query = DB::table('takbenda');
+
+    if ($request->has('search') && $request->input('search') !== '') {
+        $search = $request->input('search');
+        $query->where('judul_opk', 'like', "%$search%")
+        ->orWhere('nama_narasumber', 'like', "%$search%")
+        ->orWhere('no_hp', 'like', "%$search%")
+        ->orWhere('alamat_narasumber', 'like', "%$search%")
+        ->orWhere('lokasi_tradisi', 'like', "%$search%");
+    }
+
+    $takbenda = $query->get();
+
+    $pdf = PDF::loadView('pages.budaya_opk.pdf', compact('takbenda'))->setPaper([0, 0, 612, 1008], 'landscape');
+    return $pdf->download('Data_OPK.pdf');
 }
+}
+

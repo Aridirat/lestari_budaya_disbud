@@ -151,27 +151,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
 
-                    {{-- @if($item->foto)
-                        <img src="{{ asset('storage/' . $item->foto) }}" class="inline-flex items-center justify-center text-sm text-white transition-all duration-200 ease-in-out w-30 rounded-xl border-2 border-solid" 
-                          data-bs-toggle="modal" data-bs-target="#modalFoto{{ $item->id }}" style="cursor: pointer;">
-                        <div class="modal fade" id="modalFoto{{ $item->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalLabel{{ $item->id }}">Foto Tradisi</h5>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body modal-body text-center d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('storage/' . $item->foto) }}" class="img-fluid rounded" style="max-height: 80vh;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        Tidak Ada Foto
-                    @endif --}}
+                    
                 </div>
         
                 <div class="mb-3">
@@ -179,7 +159,7 @@
                     <input type="text" name="video" class="form-control @error('video') is-invalid @enderror" 
                     placeholder="Masukkan link YouTube atau Google Drive"  value="{{ old('video',  $item->video) }}" >
                     @if($item->video)
-                        <p>Video saat ini: <a href="{{ $item->video }}" target="_blank">Lihat Video</a></p>
+                        <p>Video saat ini: <a class="text-decoration-none" href="{{ $item->video }}" target="_blank">Lihat Video</a></p>
                     @endif
 
                     @error('video')
@@ -191,7 +171,7 @@
                     <label for="dokumen_kajian" class="form-label">Dokumen Kajian</label>
                     <input type="file" name="dokumen_kajian" class="form-control @error('dokumen_kajian') is-invalid @enderror" accept=".pdf">
                     @if($item->dokumen_kajian)
-                        <p><a href="{{ asset('storage/' . $item->dokumen_kajian) }}" target="_blank">Lihat Dokumen</a></p>
+                        <p><a class="text-decoration-none" href="{{ asset('storage/' . $item->dokumen_kajian) }}" target="_blank">Lihat Dokumen</a></p>
                     @endif
 
                     @error('dokumen_kajian')

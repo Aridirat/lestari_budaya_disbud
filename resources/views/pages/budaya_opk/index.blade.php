@@ -1,20 +1,18 @@
 @extends('layouts.main')
 
-{{-- @section('header')
-<div class="row mb-2">
-    <div class="col-sm-6">
-      <h1>OPK</h1>
-    </div>
-    <div class="col-sm-6">
-      <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-teal">Beranda</a></li>
-        <li class="breadcrumb-item active">OPK</li>
-      </ol>
-    </div>
-</div>
-@endsection --}}
+
 
 @section('content')
+@if (session('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil",
+        text: "{{ session('success') }}",
+        icon: "success"
+      });
+    </script>
+@endif
+
     {{-- Tabel Start --}}
   <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
@@ -25,7 +23,10 @@
               Tambah Data OPK
                        </a>
           </div>
-          <div class="">
+          <div class="flex space-x-2">
+            <a href="{{ route('opk.pdf', ['search' => request('search'), 'tanggal' => request('tanggal')]) }}" target="_blank" class="btn btn-sm btn-danger">
+              <i class="fas fa-file-pdf"></i> Cetak PDF
+          </a>
             <form action="{{ route('opk.index') }}" method="GET" class="d-flex">
               <input type="text" name="search" class="form-control form-control-sm mr-2" placeholder="Cari..." value="{{ request('search') }}">
               <button type="submit" class="btn btn-sm bg-teal">
@@ -98,7 +99,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="modalLabel{{ $item->id }}">Foto Galeri Tradisi</h5>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -145,9 +146,25 @@
                       <button class="btn btn-sm bg-cyan mb-1" data-toggle="modal" data-target="#lihatModal{{ $item->id }}">
                         <i class="fas fa-eye"></i>
                     </button>
+
+                    <a href="{{ route('opk.edit', $item->id) }}" class="btn btn-sm bg-indigo mb-1">
+                      <i class="fas fa-edit"></i>
+                  </a>
+                  {{-- <form action="{{ route('opk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-sm bg-red">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                  </form> --}}
+
+                  <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">
+                    <i class="fas fa-trash"></i>
+                  </button>
+
                     <!-- Modal Detail -->
                       <div class="modal fade" id="lihatModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="lihatModalLabel{{ $item->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-dialog  modal-lg" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="lihatModalLabel{{ $item->id }}">Detail OPK</h5>
@@ -155,44 +172,44 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            <div class="modal-body">
-                              <table class="table table-bordered">
+                            <div class="modal-body overflow-auto" style="max-height: 85vh;">
+                              <table class="table table-bordered ">
                                   <tr>
                                       <th>Judul</th>
-                                      <td class="text-justify">{{ $item->judul_opk }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->judul_opk }}</td>
                                   </tr>
                                   
                                   <tr>
                                       <th>Alamat Tradisi</th>
-                                      <td class="text-justify"> {{ $item->alamat_tradisi }}</td>
+                                      <td class="text-justify text-wrap text-break"> {{ $item->alamat_tradisi }}</td>
                                   </tr>
                                   <tr>
                                       <th>Lokasi Tradisi</th>
-                                      <td class="text-justify"> {{ $item->lokasi_tradisi }}</td>
+                                      <td class="text-justify text-wrap text-break"> {{ $item->lokasi_tradisi }}</td>
                                   </tr>
                                   <tr>
                                       <th>Nama Narasumber</th>
-                                      <td class="text-justify">{{ $item->nama_narasumber }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->nama_narasumber }}</td>
                                   </tr>
                                   <tr>
                                       <th>Alamat Narasumber</th>
-                                      <td class="text-justify">{{ $item->alamat_narasumber }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->alamat_narasumber }}</td>
                                   </tr>
                                   <tr>
                                       <th>No HP</th>
-                                      <td class="text-justify">{{ $item->no_hp }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->no_hp }}</td>
                                   </tr>
                                   <tr>
                                       <th>Kode Pos</th>
-                                      <td class="text-justify">{{ $item->kode_pos }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->kode_pos }}</td>
                                   </tr>
                                   <tr>
                                       <th>Kode Pos</th>
-                                      <td class="text-justify">{{ $item->email }}</td>
+                                      <td class="text-justify text-wrap text-break">{{ $item->email }}</td>
                                   </tr>
                                   <tr>
                                       <th>Video</th>
-                                      <td class="text-justify"><a href={{ $item->video }}">{{ $item->video }}</a></td>
+                                      <td class="text-justify text-wrap text-break "><a class="text-decoration-none" href={{ $item->video }}>{{ $item->video }}</a></td>
                                   </tr>
                                   <tr>
                                       <th>Dokumen Kajian</th>
@@ -212,7 +229,7 @@
                                       <th>Foto Cover</th>
                                       <td class="text-center d-flex justify-content-center align-items-center">
                                           @if($item->foto)
-                                              <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px;">
+                                              <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px; max-width: 100%;">
                                           @else
                                               Tidak ada gambar
                                           @endif
@@ -222,7 +239,7 @@
                                       <th>Foto Galeri</th>
                                       <td class="text-center d-flex justify-content-center align-items-center">
                                           @if($item->foto_galeri)
-                                              <img src="{{ asset('storage/' . $item->foto_galeri) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px;">
+                                              <img src="{{ asset('storage/' . $item->foto_galeri) }}" alt="Foto Tradisi" class="img-fluid" style="max-height: 300px; max-width: 100%;">
                                           @else
                                               Tidak ada gambar
                                           @endif
@@ -230,28 +247,16 @@
                                   </tr>
                                   <tr>
                                       <th>Deskripsi</th>
-                                      <td class="text-justify">{{ $item->deskripsi ?? '-' }}</td>
+                                      <td class="text-justify text-wrap text-break ">{{ $item->deskripsi ?? '-' }}</td>
                                   </tr>
                               </table>
+                              
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <a href="{{ route('opk.edit', $item->id) }}" class="btn btn-sm bg-indigo mb-1">
-                          <i class="fas fa-edit"></i>
-                      </a>
-                      {{-- <form action="{{ route('opk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-sm bg-red">
-                              <i class="fas fa-trash"></i>
-                          </button>
-                      </form> --}}
-
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">
-                        <i class="fas fa-trash"></i>
-                      </button>
+                      
                   </div>
                   </td>
                 </tr>
@@ -276,4 +281,5 @@
     </div>
   </div>
   {{-- Tabel End --}}
+  
 @endsection

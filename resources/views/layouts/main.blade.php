@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  <link rel="stylesheet" href="/resources/css/app.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
   <!-- AdminLTE & Argon Tailwind -->
   <link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css') }}">
@@ -42,6 +42,7 @@
 
   {{-- ChartJS --}}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   {{-- Full Calendar --}}
   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
@@ -127,7 +128,7 @@
 <script src="{{ asset('/templates/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('/templates/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('/templates/dist/js/adminlte.min.js') }}"></script>
-<script src="{{ asset('/templates/dist/js/demo.js') }}"></script>
+{{-- <script src="{{ asset('/templates/dist/js/demo.js') }}"></script> --}}
 <script src="../assets/js/plugins/chartjs.min.js" async></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>

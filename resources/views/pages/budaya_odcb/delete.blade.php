@@ -26,7 +26,7 @@
 
 <div class="modal fade" id="modal-delete-{{ $item->id }}">
     <div class="modal-dialog">
-        <form action="/budaya_odcb/{{ $item->id }}" method="post">
+        <form action="{{ route('odcb.destroy', $item->id) }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content">

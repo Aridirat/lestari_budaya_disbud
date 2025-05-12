@@ -71,7 +71,7 @@
               <div class="form-group">
                   <label for="dokumen_kajian" class="form-label">Dokumen Kajian (PDF)</label>
                   @if($kegiatan->dokumen_kajian)
-                      <p><a href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank">Lihat Dokumen</a></p>
+                      <p><a class="text-decoration-none" href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank">Lihat Dokumen</a></p>
                   @endif
                   <input type="file" name="dokumen_kajian" class="form-control @error('dokumen_kajian') is-invalid @enderror" accept=".pdf">
                   @error('dokumen_kajian')

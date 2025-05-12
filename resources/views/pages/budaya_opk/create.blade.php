@@ -1,15 +1,19 @@
 @extends('layouts.main')
 
 @section('header')
-@if ($errors->any())
-  <script>
-    Swal.fire({
-      title: "Terjadi Kesalahan",
-      text: "@foreach($errors->all() as $error) {{ $error }} @endforeach",
-      icon: "error"
-    });
-  </script>
-@endif
+
+
+<div class="row mb-2">
+    <div class="col-sm-12 text-center">
+      <h1>Tambah Data OPK</h1>
+    </div>
+    {{-- <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary">Beranda</a></li>
+        <li class="breadcrumb-item active">ODCB</li>
+      </ol>
+    </div> --}}
+</div>
 
 
 {{-- <div class="row mb-2">
@@ -129,14 +133,14 @@
 
                     <div class="form-group">
                         <label>Foto Cover</label>
-                        <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" accept="image/*" >
+                        <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror" accept="image/*" >
                         @error('foto')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Foto Galeri</label>
-                        <input type="file" name="foto_galeri" class="form-control-file @error('foto_galeri') is-invalid @enderror" accept="image/*" >
+                        <input type="file" name="foto_galeri" class="form-control @error('foto_galeri') is-invalid @enderror" accept="image/*" >
                         @error('foto_galeri')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -153,7 +157,7 @@
 
                     <div class="form-group">
                         <label>Dokumen Kajian (Opsional)</label>
-                        <input type="file" name="dokumen_kajian" class="form-control-file @error('dokumen_kajian') is-invalid @enderror" accept=".pdf">
+                        <input type="file" name="dokumen_kajian" class="form-control @error('dokumen_kajian') is-invalid @enderror" accept=".pdf">
                         @error('dokumen_kajian')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
