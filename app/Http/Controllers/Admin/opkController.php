@@ -14,16 +14,16 @@ class OpkController extends Controller
     public function index(Request $request)
     {
         $query = takbenda::query();
-    
-       
+
+
 
         if ($request->has('search') && $request->input('search') !== '') {
             $search = $request->input('search');
             $query->where('judul_opk', 'like', "%$search%")
-                  ->orWhere('nama_narasumber', 'like', "%$search%")
-                  ->orWhere('no_hp', 'like', "%$search%")
-                  ->orWhere('alamat_narasumber', 'like', "%$search%")
-                  ->orWhere('lokasi_tradisi', 'like', "%$search%");
+                ->orWhere('nama_narasumber', 'like', "%$search%")
+                ->orWhere('no_hp', 'like', "%$search%")
+                ->orWhere('alamat_narasumber', 'like', "%$search%")
+                ->orWhere('lokasi_tradisi', 'like', "%$search%");
         }
 
         $allResults = $query->get();
@@ -53,8 +53,13 @@ class OpkController extends Controller
             'no_hp' => 'required|string|max:15',
             'kode_pos' => 'required|string|max:10',
             'email' => 'required|email|max:255',
+
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'foto_galeri' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+
+
+            'kunci_token' => 'required|string',
+
             'video' => [
                 'required',
                 'url',
@@ -87,37 +92,37 @@ class OpkController extends Controller
             "video.required" => "Link video harus diisi!",
             "dokumen_kajian.mimes" => "Jenis dokumen harus pdf!",
             "dokumen_kajian.max" => "Ukuran dokumen maksimal 5mb!",
-            
+
         ]);
 
-                // Simpan foto cover
-            $foto = $request->file('foto');
-            $fotoName = date('Y-m-d') . '_' . $foto->getClientOriginalName();
-            $fotoPath = 'uploads/opk/foto/' . $fotoName;
-            Storage::disk('public')->put($fotoPath, file_get_contents($foto));
+        // Simpan foto cover
+        $foto = $request->file('foto');
+        $fotoName = date('Y-m-d') . '_' . $foto->getClientOriginalName();
+        $fotoPath = 'uploads/opk/foto/' . $fotoName;
+        Storage::disk('public')->put($fotoPath, file_get_contents($foto));
 
-                // Simpan foto galeri
-            $foto_galeri = $request->file('foto_galeri');
-            $foto_galeriName = date('Y-m-d') . '_' . $foto_galeri->getClientOriginalName();
-            $foto_galeriPath = 'uploads/opk/foto_galeri/' . $foto_galeriName;
-            Storage::disk('public')->put($foto_galeriPath, file_get_contents($foto_galeri));
+        // Simpan foto galeri
+        $foto_galeri = $request->file('foto_galeri');
+        $foto_galeriName = date('Y-m-d') . '_' . $foto_galeri->getClientOriginalName();
+        $foto_galeriPath = 'uploads/opk/foto_galeri/' . $foto_galeriName;
+        Storage::disk('public')->put($foto_galeriPath, file_get_contents($foto_galeri));
 
-            // Simpan dokumen (jika ada)
-            $dokumenPath = null;
-            if ($request->hasFile('dokumen_kajian')) {
-                $dokumen = $request->file('dokumen_kajian');
-                $dokumenName = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
-                $dokumenPath = 'uploads/opk/dokumen/' . $dokumenName;
-                Storage::disk('public')->put($dokumenPath, file_get_contents($dokumen));
-            }
+        // Simpan dokumen (jika ada)
+        $dokumenPath = null;
+        if ($request->hasFile('dokumen_kajian')) {
+            $dokumen = $request->file('dokumen_kajian');
+            $dokumenName = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
+            $dokumenPath = 'uploads/opk/dokumen/' . $dokumenName;
+            Storage::disk('public')->put($dokumenPath, file_get_contents($dokumen));
+        }
 
-            takbenda::create(array_merge($validated, [
-                'foto' => $fotoPath,
-                'foto_galeri' => $foto_galeriPath,
-                'dokumen_kajian' => $dokumenPath,
-            ]));
+        takbenda::create(array_merge($validated, [
+            'foto' => $fotoPath,
+            'foto_galeri' => $foto_galeriPath,
+            'dokumen_kajian' => $dokumenPath,
+        ]));
 
-            return redirect()->route('opk.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('opk.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -176,7 +181,7 @@ class OpkController extends Controller
 
         $item = takbenda::findOrFail($id);
         $data = $validated;
-    
+
         // Update foto cover jika diunggah
         if ($request->hasFile('foto')) {
             if ($item->foto) {
@@ -200,7 +205,7 @@ class OpkController extends Controller
             Storage::disk('public')->put($foto_galeriPath, file_get_contents($foto_galeri));
             $data['foto_galeri'] = $foto_galeriPath;
         }
-    
+
         // Update dokumen jika diunggah
         if ($request->hasFile('dokumen_kajian')) {
             if ($item->dokumen_kajian) {
@@ -212,46 +217,45 @@ class OpkController extends Controller
             Storage::disk('public')->put($dokumenPath, file_get_contents($dokumen));
             $data['dokumen_kajian'] = $dokumenPath;
         }
-    
+
         $item->update($data);
-    
+
         return redirect()->route('opk.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $item = takbenda::findOrFail($id);
-    
+
         if ($item->foto) {
             Storage::disk('public')->delete($item->foto);
         }
-    
+
         if ($item->dokumen_kajian) {
             Storage::disk('public')->delete($item->dokumen_kajian);
         }
-    
+
         $item->delete();
-    
+
         return redirect()->route('opk.index')->with('success', 'Data berhasil dihapus');
     }
 
     public function exportPdf(Request $request)
-{
-    $query = DB::table('takbenda');
+    {
+        $query = DB::table('takbenda');
 
-    if ($request->has('search') && $request->input('search') !== '') {
-        $search = $request->input('search');
-        $query->where('judul_opk', 'like', "%$search%")
-        ->orWhere('nama_narasumber', 'like', "%$search%")
-        ->orWhere('no_hp', 'like', "%$search%")
-        ->orWhere('alamat_narasumber', 'like', "%$search%")
-        ->orWhere('lokasi_tradisi', 'like', "%$search%");
+        if ($request->has('search') && $request->input('search') !== '') {
+            $search = $request->input('search');
+            $query->where('judul_opk', 'like', "%$search%")
+                ->orWhere('nama_narasumber', 'like', "%$search%")
+                ->orWhere('no_hp', 'like', "%$search%")
+                ->orWhere('alamat_narasumber', 'like', "%$search%")
+                ->orWhere('lokasi_tradisi', 'like', "%$search%");
+        }
+
+        $takbenda = $query->get();
+
+        $pdf = PDF::loadView('pages.budaya_opk.pdf', compact('takbenda'))->setPaper([0, 0, 612, 1008], 'landscape');
+        return $pdf->download('Data_OPK.pdf');
     }
-
-    $takbenda = $query->get();
-
-    $pdf = PDF::loadView('pages.budaya_opk.pdf', compact('takbenda'))->setPaper([0, 0, 612, 1008], 'landscape');
-    return $pdf->download('Data_OPK.pdf');
 }
-}
-

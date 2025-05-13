@@ -35,6 +35,13 @@
                     @csrf
 
                     <div class="form-group">
+                        <input type="text" name="kunci_token" value="token_admin" class="form-control @error('kunci_token') is-invalid @enderror" hidden>
+                        @error('kunci_token')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label>Nama Obyek</label>
                         <input type="text" name="nama_obyek" class="form-control @error('nama_obyek') is-invalid @enderror"  value="{{ old('nama_obyek') }}" placeholder="Masukkan nama obyek">
                         @error('nama_obyek')
@@ -44,7 +51,7 @@
 
                     <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" placeholder="Masukkan deskripsi">{{ old('deskripsi') }}</textarea>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -96,6 +103,22 @@
                             @endforeach
                         </select>
                         @error('status_pemilik')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

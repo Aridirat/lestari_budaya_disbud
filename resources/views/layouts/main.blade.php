@@ -17,7 +17,7 @@
   <!-- AdminLTE & Argon Tailwind -->
   <link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css') }}">
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
   <link href="assets/css/argon-dashboard-tailwind.css?v=1.0.1" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />

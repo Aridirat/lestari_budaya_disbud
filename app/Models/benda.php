@@ -12,6 +12,7 @@ class benda extends Model
     protected $table = 'benda'; 
 
     protected $fillable = [
+        'kunci_token',
         'nama_obyek',
         'deskripsi',
         'kategori',

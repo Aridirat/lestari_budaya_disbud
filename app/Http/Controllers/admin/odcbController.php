@@ -52,9 +52,11 @@ class OdcbController extends Controller
             'nama_pemilik' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'alamat_pemilik' => 'required|string',
             'status_pemilik' => 'required|in:Pribadi,Pemerintah',
+
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'foto_galeri' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'dokumen_kajian' => 'nullable|mimes:pdf|max:5048',
+            'kunci_token' => 'required|string',
         ], [
             "nama_obyek.required" => "Nama obyek harus diisi!",
             "nama_obyek.max" => "Maksimal 255 karakter!",
@@ -72,10 +74,14 @@ class OdcbController extends Controller
             "foto_galeri.mimes" => "Jenis foto galeri harus jpeg, png, atau jpg!",
             "foto_galeri.max" => "Ukuran foto galeri maksimal 5mb!",
            
+
+            
+
         ]);
 
         // $fotoPath = $request->file('foto')->store('uploads', 'public');
         // $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
+
 
 
             // Simpan foto cover
@@ -106,19 +112,13 @@ class OdcbController extends Controller
 
             ]));
 
-        // DB::table('benda')->insert([
-        //     'nama_obyek' => $validated['nama_obyek'],
-        //     'deskripsi' => $validated['deskripsi'],
-        //     'kategori' => $validated['kategori'],
-        //     'lokasi_penemuan' => $validated['lokasi_penemuan'],
-        //     'nama_pemilik' => $validated['nama_pemilik'],
-        //     'alamat_pemilik' => $validated['alamat_pemilik'],
-        //     'status_pemilik' => $validated['status_pemilik'],
-        //     'foto' => $fotoPath,
-        //     'dokumen_kajian' => $dokumenPath,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
+        
+
+        DB::table('benda')->insert([
+            
+            'kunci_token' => $validated['kunci_token'],
+            
+        ]);
 
         return redirect()->route('odcb.index')->with('success', 'Data berhasil ditambahkan!');
     }

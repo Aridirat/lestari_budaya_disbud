@@ -69,6 +69,18 @@
               </div>
 
               <div class="form-group">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea 
+                name="deskripsi" 
+                id="deskripsi" 
+                cols="30" rows="5" 
+                class="form-control @error('deskripsi') is-invalid @enderror">{{ old('deskripsi', $kegiatan->deskripsi) }}</textarea>
+                @error('deskripsi')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+              <div class="form-group">
                   <label for="dokumen_kajian" class="form-label">Dokumen Kajian (PDF)</label>
                   @if($kegiatan->dokumen_kajian)
                       <p><a class="text-decoration-none" href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank">Lihat Dokumen</a></p>

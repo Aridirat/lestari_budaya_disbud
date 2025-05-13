@@ -12,6 +12,7 @@ class takbenda extends Model
 
     protected $fillable = [
         'judul_opk',
+        'kunci_token',
         'deskripsi',
         'alamat_tradisi',
         'lokasi_tradisi',
