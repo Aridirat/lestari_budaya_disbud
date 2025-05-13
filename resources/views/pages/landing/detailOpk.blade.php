@@ -70,6 +70,12 @@
                       Dokumen Kegiatan
                     </a>
               </div>
+              
+              <figure>
+                <img class="w-full object-cover rounded-xl" src="{{ asset('storage/' . $takbenda->foto_galeri) }}" alt="Blog Image">
+              </figure>
+
+              
               <div>
                 <div>
                   <p>Video:</p>

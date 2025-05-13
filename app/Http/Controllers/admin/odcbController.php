@@ -13,7 +13,7 @@ class OdcbController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DB::table('benda');
+        $query = benda::query();
     
         
 
@@ -114,11 +114,11 @@ class OdcbController extends Controller
 
         
 
-        DB::table('benda')->insert([
+        // DB::table('benda')->insert([
             
-            'kunci_token' => $validated['kunci_token'],
+        //     'kunci_token' => $validated['kunci_token'],
             
-        ]);
+        // ]);
 
         return redirect()->route('odcb.index')->with('success', 'Data berhasil ditambahkan!');
     }

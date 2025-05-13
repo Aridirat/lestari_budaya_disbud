@@ -38,18 +38,7 @@
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="form-group">
-                <label for="deskripsi" class="form-label">Deskripsi</label>
-                <textarea 
-                name="deskripsi"
-                id="deskripsi" 
-                cols="30" rows="5" 
-                class="form-control @error('deskripsi') is-invalid @enderror"
-                placeholder="Masukkan deskripsi kegiatan">{{ old('deskripsi') }}</textarea>
-                @error('deskripsi')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
+            
             <div class="form-group">
                 <label for="lokasi_kegiatan" class="form-label">Lokasi Kegiatan</label>
                 <input type="text" name="lokasi_kegiatan" id="lokasi_kegiatan" class="form-control @error('lokasi_kegiatan') is-invalid @enderror" value="{{ old('lokasi_kegiatan') }}" placeholder="Lokasi">

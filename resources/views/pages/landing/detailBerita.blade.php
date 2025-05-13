@@ -54,17 +54,11 @@
             </div>
             <div class="text-center">
               <div class="grid lg:grid-cols-2 gap-3">
-                <div class="grid grid-cols-2 lg:grid-cols-1 gap-3">
-                  <figure class="relative w-full h-60">
-                    <img class="size-full absolute top-0 start-0 object-cover rounded-xl" src="{{ asset($kegiatans->gambar) }}" alt="Blog Image">
-                  </figure>
-                  <figure class="relative w-full h-60">
-                    <img class="size-full absolute top-0 start-0 object-cover rounded-xl" src="https://images.unsplash.com/photo-1671726203638-83742a2721a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Blog Image">
-                  </figure>
-                </div>
-                <figure class="relative w-full h-72 sm:h-96 lg:h-full">
-                  <img class="size-full absolute top-0 start-0 object-cover rounded-xl" src="https://images.unsplash.com/photo-1671726203394-491c8b574a0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Blog Image">
-                </figure>
+                  <div class="col-span-2">
+                    <figure class="relative w-full h-100">
+                      <img class="size-full absolute top-0 start-0 object-cover rounded-xl" src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatans->gambar) }}" alt="Blog Image">
+                    </figure>
+                  </div>
               </div>
             </div>
   
@@ -125,7 +119,7 @@
                 @if ($kegiatan->id !== $kegiatans->id)
                     <a class="group flex items-center gap-x-6 focus:outline-hidden" href="{{ route('landing.detailBerita', $kegiatan->id) }}">
                         <div class="shrink-0 relative rounded-lg overflow-hidden size-20">
-                            <img class="size-full absolute top-0 start-0 object-cover rounded-lg" src="{{ asset($kegiatan->gambar) }}" alt="Blog Image">
+                            <img class="size-full absolute top-0 start-0 object-cover rounded-lg" src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" alt="Blog Image">
                         </div>
                         <div class="grow">
                             <span class="text-sm font-bold text-gray-800 group-hover:text-teal-600 group-focus:text-teal-600 dark:text-neutral-200 dark:group-hover:text-teal-500 dark:group-focus:text-teal-500">

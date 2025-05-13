@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" href="{{ asset('../assets/img/logo-lesbud.png') }}"/>
-    <title>Daftar Kebudayaan Takbenda</title>
+    <title>Daftar Kebudayaan Benda</title>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
       <!-- Title -->
       <div class="mt-5 max-w-2xl text-center mx-auto font-merienda">
         <h1 class="block font-bold  text-gray-800 text-2xl md:text-3xl lg:text-5xl dark:text-neutral-200">
-          Formulir Pendaftaran Takbenda
+          Formulir Pendaftaran Benda
           <span class="bg-clip-text bg-linear-to-tl from-cyan-600 via-emerald-400 to-teal-500 text-transparent">Badung</span>
         </h1>
       </div>
@@ -153,6 +153,43 @@
         </div>
 
         <div class="col-span-7 form-group">
+                  <label for="galery-photo" class="block text-sm/6 font-medium text-gray-900">Foto Lainnya</label>
+                  <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                    <div class="text-center">
+                      <img id="gallery-image-preview" class="mx-auto mb-4 hidden max-h-40" alt="Preview Foto Lainnya">
+                      <svg id="gallery-image-placeholder" class="mx-auto size-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
+                      </svg>
+                      <div class="mt-4 flex justify-center text-sm/6 text-gray-600">
+                        <p class="pr-1">Klik untuk </p>
+                        <label for="foto_galeri" class="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-teal-500">
+                          <span> Upload foto</span>
+                          <input id="foto_galeri" name="foto_galeri" type="file" class="sr-only" onchange="previewGalleryImage(event)">
+                        </label>
+                      </div>
+                      <p class="text-xs/5 text-gray-600">File PNG atau JPG maksimal 10MB</p>
+                    </div>
+                  </div>
+                </div>
+
+        <script>
+          function previewGalleryImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('gallery-image-preview');
+            const placeholder = document.getElementById('gallery-image-placeholder');
+            if (input.files && input.files[0]) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+              };
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+        </script>
+
+        <div class="col-span-7 form-group">
           <label for="cover-photo" class="block text-sm font-medium text-gray-900">Dokumen Kajian</label>
           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div class="text-center">
@@ -275,35 +312,35 @@ function removeFile() {
   document.getElementById('file-placeholder').style.display = 'block';
 }
 
-// Token management
-const maxTokens = 3;
-let remainingTokens = localStorage.getItem('remainingTokens') || maxTokens;
-const tokenProgress = document.getElementById('token-progress');
-const remainingTokensDisplay = document.getElementById('remaining-tokens');
-const tokenProgressWidth = 100 / maxTokens;
+// // Token management
+// const maxTokens = 3;
+// let remainingTokens = localStorage.getItem('remainingTokens') || maxTokens;
+// const tokenProgress = document.getElementById('token-progress');
+// const remainingTokensDisplay = document.getElementById('remaining-tokens');
+// const tokenProgressWidth = 100 / maxTokens;
 
-function updateTokenProgress() {
-  remainingTokens--;
-  if (remainingTokens < 0) {
-    alert('Token habis! Anda tidak dapat mengisi formulir lagi dengan token ini.');
-    return false;
-  }
-  localStorage.setItem('remainingTokens', remainingTokens);
-  tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
-  remainingTokensDisplay.textContent = remainingTokens;
-  return true;
-}
+// function updateTokenProgress() {
+//   remainingTokens--;
+//   if (remainingTokens < 0) {
+//     alert('Token habis! Anda tidak dapat mengisi formulir lagi dengan token ini.');
+//     return false;
+//   }
+//   localStorage.setItem('remainingTokens', remainingTokens);
+//   tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
+//   remainingTokensDisplay.textContent = remainingTokens;
+//   return true;
+// }
 
-document.addEventListener('DOMContentLoaded', function () {
-  tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
-  remainingTokensDisplay.textContent = remainingTokens;
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   tokenProgress.style.width = `${tokenProgressWidth * remainingTokens}%`;
+//   remainingTokensDisplay.textContent = remainingTokens;
+// });
 
-document.querySelector('form').addEventListener('submit', function(event) {
-  if (!updateTokenProgress()) {
-    event.preventDefault(); // Prevent form submission if tokens are exhausted
-  }
-});
+// document.querySelector('form').addEventListener('submit', function(event) {
+//   if (!updateTokenProgress()) {
+//     event.preventDefault(); // Prevent form submission if tokens are exhausted
+//   }
+// });
 
 </script>
 

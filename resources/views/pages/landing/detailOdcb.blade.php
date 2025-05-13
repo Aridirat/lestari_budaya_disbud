@@ -73,6 +73,9 @@
                 </a>
               </div>
               <div>
+                <figure>
+                <img class="w-full object-cover rounded-xl" src="{{ asset('storage/' . $benda->foto_galeri) }}" alt="Blog Image">
+              </figure>
           
             </div>
             {{-- <figure>

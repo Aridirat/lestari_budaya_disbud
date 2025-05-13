@@ -92,28 +92,11 @@
                   <p class="mb-0 text-xs font-semibold text-balance leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $kegiatan->lokasi_kegiatan }}</p>
                 </td>
                 <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 text-xs font-semibold text-balance leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $kegiatan->tanggal_kegiatan }}</p>
+                  <p class="mb-0 text-xs font-semibold text-balance leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->locale('id')->translatedFormat('l, d F Y') }}</p>
                 </td>              
                 <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                   <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">@if($kegiatan->dokumen_kajian)
                     <a href="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" target="_blank" class="btn btn-sm bg-teal" ><i class="fas fa-solid fa-file pe-1"></i>Lihat</a>
-
-                    {{-- <!-- Modal Dokumen -->
-                    <div class="modal fade" id="dokumenModal{{ $kegiatan->id }}" tabindex="-1" role="dialog" aria-labelledby="dokumenLabel{{ $kegiatan->id }}" aria-hidden="true">
-                      <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Dokumen Kajian</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                              <iframe src="{{ asset('storage/uploads/kegiatan/dokumen_kajian/' . $kegiatan->dokumen_kajian) }}" width="100%" height="500px"></iframe>
-                          </div>
-                        </div>
-                      </div>
-                    </div> --}}
                 @else
                 <span>Tidak ada dokumen</span>
                 @endif</span>
@@ -147,7 +130,7 @@
                                 </tr>
                                 <tr>
                                     <th>Tanggal Kegiatan</th>
-                                    <td class="text-justify text-wrap text-break">{{ $kegiatan->tanggal_kegiatan }}</td>
+                                    <td class="text-justify text-wrap text-break">{{ \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->locale('id')->translatedFormat('l, d F Y') }}</td>
                                 </tr>
                                 <tr>
                                     <th>Dokumen Kajian</th>

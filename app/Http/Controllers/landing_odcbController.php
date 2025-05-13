@@ -32,13 +32,15 @@ class landing_odcbController extends Controller
             'nama_pemilik' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'alamat_pemilik' => 'required|string',
             'status_pemilik' => 'required|in:Pribadi,Pemerintah',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+            'foto_galeri' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
             'kunci_token' => 'required|string',
 
         ]);
 
         $fotoPath = $request->file('foto')->store('uploads', 'public');
+        $foto_galeriPath = $request->file('foto_galeri')->store('uploads', 'public');
         $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
 
         DB::table('benda')->insert([
@@ -51,6 +53,7 @@ class landing_odcbController extends Controller
             'status_pemilik' => $validated['status_pemilik'],
             'kunci_token' => $validated['kunci_token'],
             'foto' => $fotoPath,
+            'foto_galeri' => $foto_galeriPath,
             'dokumen_kajian' => $dokumenPath,
             'created_at' => now(),
             'updated_at' => now(),

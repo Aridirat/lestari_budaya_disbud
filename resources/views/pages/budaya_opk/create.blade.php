@@ -63,14 +63,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3"  placeholder="Masukkan deskripsi">{{ old('deskripsi') }}</textarea>
-                        @error('deskripsi')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label>Alamat Tradisi</label>
                         <input type="text" name="alamat_tradisi" class="form-control @error('alamat_tradisi') is-invalid @enderror"  value="{{ old('alamat_tradisi') }}" placeholder="Masukkan alamat tradisi">
                         @error('alamat_tradisi')
@@ -137,10 +129,10 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    
                     <div class="form-group">
                         <label>Deskripsi Kebudayaan</label>
-                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" required>{{ old('deskripsi') }}</textarea>
+                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3"  placeholder="Masukkan deskripsi">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

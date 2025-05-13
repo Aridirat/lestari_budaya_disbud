@@ -48,23 +48,24 @@
               </button>
               <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 absolute left-0 md:w-80 hidden z-10 top-full md:bg-white md:rounded-lg md:shadow-md before:absolute before:-top-4 before:start-0 before:w-full before:h-5 dark:md:bg-neutral-800" role="menu" aria-orientation="vertical" aria-labelledby="hs-header-base-mega-menu-small">
                 <div class="py-1 md:px-1 space-y-0.5">
-                  <!-- Link -->
-                  <a class="p-3 flex gap-x-4 focus:outline-hidden focus:bg-gray-100 rounded-lg dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 {{ request()->is('create_opk') ? 'bg-teal-200 text-gray-800' : '' }}" href="/create_opk">
-                    <svg class="shrink-0 size-4 mt-1 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
-                    <div class="grow">
-                      <span class="block font-semibold text-sm text-gray-800 dark:text-neutral-200">Daftar OPK/WBTB</span>
-                      <p class="text-sm text-gray-500 dark:text-neutral-500">Pendaftaran Kebudayaan Takbenda</p>
-                    </div>
-                  </a>
-                  <!-- End Link -->
-                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
-                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
+                  
                   <!-- Link -->
                   <a class="p-3 flex gap-x-4 focus:outline-hidden focus:bg-gray-100 rounded-lg dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 {{ request()->is('create_odcb') ? 'bg-teal-200 text-gray-800' : '' }}" href="/create_odcb">
                     <svg class="shrink-0 size-4 mt-1 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
                     <div class="grow">
                       <span class="block font-semibold text-sm text-gray-800 dark:text-neutral-200">ODCB/CB</span>
                       <p class="text-sm text-gray-500 dark:text-neutral-500">Pendaftaran Kebudayaan Benda</p>
+                    </div>
+                  </a>
+                  <!-- End Link -->
+                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
+                  <div class="my-2 border-t border-gray-100 dark:border-neutral-800"></div>
+                  <!-- Link -->
+                  <a class="p-3 flex gap-x-4 focus:outline-hidden focus:bg-gray-100 rounded-lg dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 {{ request()->is('create_opk') ? 'bg-teal-200 text-gray-800' : '' }}" href="/create_opk">
+                    <svg class="shrink-0 size-4 mt-1 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
+                    <div class="grow">
+                      <span class="block font-semibold text-sm text-gray-800 dark:text-neutral-200">Daftar OPK/WBTB</span>
+                      <p class="text-sm text-gray-500 dark:text-neutral-500">Pendaftaran Kebudayaan Takbenda</p>
                     </div>
                   </a>
                   <!-- End Link -->
@@ -88,7 +89,41 @@
   </div>
   <!-- End Title -->
 
+
+  {{-- Benda --}}
+  @if ($benda->isEmpty())
+    <div class="text-center py-10">
+      <h2 class="text-2xl font-quicksand text-gray-400">Kebudayaan Benda belum terdaftar</h2>
+    </div>
+  @else
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 my-10 font-quicksand">
+      @foreach ($benda->take(3) as $item)
+        <!-- Card -->
+        <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="{{ route('landing.detailOdcb', $item->id) }}">
+          <div class="aspect-w-16 aspect-h-10">
+            <img class="w-100 h-80 object-cover rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_obyek }}">
+          </div>
+          <h3 class="font-bold mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+            {{ $item->nama_obyek }}
+          </h3>
+          <p class="mt-2 text-sm text-gray-600 truncate dark:text-neutral-400">{{ $item->lokasi_penemuan }}</p>
+          <p class="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-teal-500 dark:text-neutral-200">
+            Detail
+            <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </p>
+        </a>
+        <!-- End Card -->
+      @endforeach
+    </div>
+  @endif
+  {{-- End Benda --}}
+
   <!-- Takbenta -->
+  @if ($takbenda->isEmpty())
+    <div class="text-center py-10">
+      <h2 class="text-2xl font-quicksand text-gray-400">Kebudayaan Takbenda belum terdaftar</h2>
+    </div>
+  @else
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 font-quicksand">
     @foreach ($takbenda->take(3) as $item)
       <!-- Card -->
@@ -108,29 +143,8 @@
       <!-- End Card -->
     @endforeach
   </div>
+  @endif
   <!-- End Takbenda -->
-
-  {{-- Benda --}}
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 my-10 font-quicksand">
-  @foreach ($benda->take(3) as $item)
-    <!-- Card -->
-    <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="{{ route('landing.detailOdcb', $item->id) }}">
-      <div class="aspect-w-16 aspect-h-10">
-        <img class="w-100 h-80 object-cover rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_obyek }}">
-      </div>
-      <h3 class="font-bold mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-        {{ $item->nama_obyek }}
-      </h3>
-      <p class="mt-2 text-sm text-gray-600 truncate dark:text-neutral-400">{{ $item->lokasi_penemuan }}</p>
-      <p class="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-teal-500 dark:text-neutral-200">
-        Detail
-        <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-      </p>
-    </a>
-    <!-- End Card -->
-    @endforeach
-  </div>
-  {{-- End Benda --}}
   
       {{-- Start Button --}}
       <div class="flex justify-center col-start-2 my-10">   
@@ -171,6 +185,11 @@
   <!-- End Title -->
 
 <!-- Slider -->
+@if ($kegiatans->isEmpty())
+  <div class="text-center py-10">
+    <h2 class="text-2xl font-quicksand text-gray-400">Berita kegiatan belum tersedia</h2>
+  </div>
+@else
 <div data-hs-carousel='{
   "loadingClasses": "opacity-0",
   "dotsItemClasses": "hs-carousel-active:bg-teal-400 hs-carousel-active:border-teal-400 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-500 dark:hs-carousel-active:bg-teal-500 dark:hs-carousel-active:border-teal-500",
@@ -189,14 +208,14 @@
       <div class="flex hs-carousel-slide snap-center gap-6 my-5">
         <a class="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10 flex-none w-80" href="{{ route('landing.detailBerita', $item->id) }}">
           <div class="aspect-w-16 aspect-h-9">
-            <img class="w-full h-50 object-cover rounded-xl" src="{{ asset($item->gambar) }}" alt="Blog Image">
+            <img class="w-full h-50 object-cover rounded-xl" src="{{ asset('storage/uploads/kegiatan/gambar/' . $item->gambar) }}" alt="Blog Image">
           </div>
           <h3 class="mt-2 text-lg font-bold text-gray-800 group-hover:text-teal-500 group-focus:text-teal-500 dark:text-neutral-300 dark:group-hover:text-white dark:group-focus:text-white">{{ $item->judul_kegiatan }}</h3>
           <p class="mt-2 text-sm text-gray-400 dark:text-neutral-400">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->locale('id')->translatedFormat('l, d F Y') }}</p>
         </a>
       </div>
-        @endforeach
-        <!-- End Card -->
+      @endforeach
+      <!-- End Card -->
     </div>
   </div>
 
@@ -219,6 +238,7 @@
 
   <div class="hs-carousel-pagination flex justify-center absolute bottom-3 start-0 end-0 gap-x-2"></div>
 </div>
+@endif
 <!-- End Slider -->
 
 </div>

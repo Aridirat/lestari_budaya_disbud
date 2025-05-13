@@ -13,12 +13,6 @@
             "icon" => "fas fa-theater-masks",
             "active" => request()->is('opk*')
         ],
-        // (object) [
-        //     "title" => "OPK", 
-        //     "path" => "opk", 
-        //     "icon" => "fas fa-book",
-        //     "active" => request()->is('opk*')
-        // ],
         (object) [
             "title" => "ODCB", 
             "path" => "odcb", 
@@ -30,12 +24,6 @@
             "path" => "kegiatan", 
             "icon" => "fas fa-calendar-alt",
             "active" => request()->is('kegiatan*')
-        ],
-        (object) [
-            "title" => "Halaman utama", 
-            "path" => "/", 
-            "icon" => "fas fa-exchange-alt",
-            "active" => true
         ]
     ];
 @endphp
@@ -83,6 +71,14 @@
                         </a>
                     </li>
                 @endforeach
+                <li class="nav-item border-secondary border-top rounded-0">
+                    <a href="/" class="nav-link mt-3 btn active">
+                        <i class="nav-icon fas fa-exchange-alt"></i>
+                        <p class="">
+                            Halaman Utama
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
 

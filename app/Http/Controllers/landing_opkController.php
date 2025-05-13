@@ -34,7 +34,8 @@ class landing_opkController extends Controller
             'no_hp' => 'required|string|max:15',
             'kode_pos' => 'required|string|max:10',
             'email' => 'required|email|max:255',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,webp|max:5048',
+            'foto_galeri' => 'required|image|mimes:jpeg,png,jpg|max:5048',
             'kunci_token' => 'required|string',
             'video' => [
                 'required',
@@ -46,10 +47,12 @@ class landing_opkController extends Controller
         ]);
 
         $fotoPath = $request->file('foto')->store('uploads', 'public');
+        $foto_galeriPath = $request->file('foto_galeri')->store('uploads', 'public');
         $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
 
         takbenda::create(array_merge($validated, [
             'foto' => $fotoPath,
+            'foto_galeri' => $foto_galeriPath,
             'dokumen_kajian' => $dokumenPath,
         ]));
 
