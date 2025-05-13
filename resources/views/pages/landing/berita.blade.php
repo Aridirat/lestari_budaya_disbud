@@ -41,7 +41,7 @@
       $kegiatan = $kegiatans->first();
     @endphp
     <div class="row-start-2 col-span-5 font-quicksand">
-      <img src="{{ asset($kegiatan->gambar) }}" class="rounded-md object-cover w-full h-64">
+      <img src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" class="rounded-md object-cover w-full h-64">
       <span class="text-gray-400 text-sm hidden md:block mt-4"> {{ $kegiatan->tanggal_kegiatan }} </span>
       <h1 class="text-gray-800 text-4xl font-bold mt-2 mb-2 leading-tight font-display">
       {{ $kegiatan->judul_kegiatan }}
@@ -53,7 +53,6 @@
       Baca Selengkapnya
       </a>
     </div>
-    @endif
     <!-- End Main content -->
 
       {{-- Another --}}
@@ -63,7 +62,7 @@
         <hr class="border-gray-200 dark:border-white">
         <a href="{{ route('landing.detailBerita', $kegiatan->id) }}">
           <div class="rounded-xl w-full my-2 px-2 flex flex-col md:flex-row py-2 hover:bg-gray-100">
-            <img src="{{ asset($kegiatan->gambar) }}" class="block md:hidden lg:block rounded-md aspect-3/2 md:h-32 m-4 md:m-0" />
+            <img src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" class="block md:hidden lg:block rounded-md aspect-3/2 md:h-32 m-4 md:m-0" />
             <div class="rounded px-4">
               <span class="text-gray-400 font-quicksand text-sm hidden md:block"> {{ $kegiatan->tanggal_kegiatan }} </span>
               <div class="md:mt-0 text-gray-800 font-semibold text-lg mb-2">
@@ -92,7 +91,7 @@
       @foreach ($kegiatans as $kegiatan)
       <div class="row">
           <div class="col">
-            <img src="{{ asset($kegiatan->gambar) }}" class="rounded aspect-3/2" alt="technology" />
+            <img src="{{ asset('storage/uploads/kegiatan/gambar/' . $kegiatan->gambar) }}" class="rounded aspect-3/2" alt="technology" />
             <div class="p-4 pl-0">
               <span class="text-gray-400 text-sm hidden md:block my-2"> {{ $kegiatan->tanggal_kegiatan }} </span>
               <h2 class="font-bold text-xl text-gray-800 font-display">{{ $kegiatan->judul_kegiatan }} </h2>
@@ -109,6 +108,12 @@
   </div>
   <!-- end all news -->
     
+  @else
+  <div class="col-span-full text-center py-10">
+    <h2 class="text-2xl font-quicksand text-gray-400">Berita kegiatan belum tersedia</h2>
+  </div>
+  @endif
+
 </div>
 {{-- End Content --}}
 

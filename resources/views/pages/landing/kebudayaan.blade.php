@@ -36,11 +36,16 @@
     <h2 class="text-2xl font-merienda font-bold md:text-4xl md:leading-tight dark:text-white">Kebudayaan Benda</h2>
     <p class="font-quicksand mt-1 text-gray-600 dark:text-neutral-400">Warisan benda yang menjadi kearifan lokal yang telah ditemukan di Kabupaten Badung.</p>
   </div>
+  @if ($benda->isEmpty())
+      <div class="text-center font-quicksand mb-30 text-gray-400 dark:text-neutral-400">
+        <h2 class="text-2xl">Kebudayaan Benda belum terdaftar</h2>
+      </div>
+    @else
     <div class="grid grid-cols-3 gap-4 m-10 font-quicksand">
         @foreach ($benda as $item)
         <div class="card hover:bg-gray-100 rounded-xl">
           <div class="card-body p-2 flex justify-center">
-            <img class="aspect-3/2 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
+            <img class="w-100 h-80 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
           </div>
           <div class="p-4 md:p-5">
             <h3 class="text-2xl font-bold text-gray-800 dark:text-white pb-2">
@@ -54,7 +59,7 @@
         </div>
         @endforeach
     </div>
-    
+    @endif
 </div>
 {{-- End Content --}}
 
@@ -64,24 +69,30 @@
     <h2 class="text-2xl font-merienda font-bold md:text-4xl md:leading-tight dark:text-white">Kebudayaan Takbenda</h2>
     <p class="font-quicksand mt-1 text-gray-600 dark:text-neutral-400">Warisan takbenda yang kaya akan nilai, tradisi, dan kearifan lokal yang telah ditemukan di Kabupaten Badung.</p>
   </div>
-  <div class="grid grid-cols-3 gap-4 m-10 font-quicksand">
+    @if ($takbenda->isEmpty())
+      <div class="text-center font-quicksand mb-30 text-gray-400 dark:text-neutral-400">
+        <h2 class="text-2xl">Kebudayaan Takbenda belum terdaftar</h2>
+      </div>
+    @else
+      <div class="grid grid-cols-3 gap-4 m-10 font-quicksand">
       @foreach ($takbenda as $item)
       <div class="card hover:bg-gray-100 rounded-xl">
         <div class="card-body p-2 flex justify-center">
-          <img class="aspect-3/2 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
+        <img class="w-100 h-80 rounded-xl" src="{{ asset('storage/' . $item->foto) }}" alt="Card Image">
         </div>
         <div class="p-4 md:p-5">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-white pb-2">
-            {{ $item->judul_opk }}
-          </h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">{{ $item->alamat_tradisi }}</p>
-          <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="{{ route('landing.detailOpk', $item->id) }}">
-            Detail
-          </a>
+        <h3 class="text-2xl font-bold text-gray-800 dark:text-white pb-2">
+          {{ $item->judul_opk }}
+        </h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">{{ $item->alamat_tradisi }}</p>
+        <a class="my-5 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-600 text-white hover:bg-teal-700 focus:outline-hidden focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none" href="{{ route('landing.detailOpk', $item->id) }}">
+          Detail
+        </a>
         </div>
       </div>
       @endforeach
-    </div>
+      </div>
+    @endif
     
 </div>
 {{-- End Content --}}
