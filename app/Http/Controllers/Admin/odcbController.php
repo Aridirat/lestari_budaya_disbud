@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\benda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OdcbController extends Controller
 {
@@ -14,13 +15,26 @@ class OdcbController extends Controller
     {
         $query = DB::table('benda');
     
-        if ($request->has('search')) {
-            $query->where('nama_obyek', 'like', '%' . $request->search . '%');
+        
+
+        if ($request->has('search') && $request->input('search') !== '') {
+            $search = $request->input('search');
+            $query->where('nama_obyek', 'like', "%$search%")
+                  ->orWhere('kategori', 'like', "%$search%")
+                  ->orWhere('nama_pemilik', 'like', "%$search%")
+                  ->orWhere('alamat_pemilik', 'like', "%$search%")
+                  ->orWhere('lokasi_penemuan', 'like', "%$search%")
+                  ->orWhere('status_pemilik', 'like', "%$search%");
         }
-    
-        $benda = $query->paginate(10); 
-    
-        return view('pages.budaya_odcb.index', compact('benda'));
+
+        $allResults = $query->get();
+        $benda = $query->latest()->paginate(10);
+
+        return view('pages.budaya_odcb.index', [
+            "benda" => $benda,
+            "allResults" => $allResults,
+            "search" => $request->input('search', '')
+        ]);
     }
 
     public function create()
@@ -38,25 +52,72 @@ class OdcbController extends Controller
             'nama_pemilik' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'alamat_pemilik' => 'required|string',
             'status_pemilik' => 'required|in:Pribadi,Pemerintah',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
+
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+            'foto_galeri' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+            'dokumen_kajian' => 'nullable|mimes:pdf|max:5048',
+            'kunci_token' => 'required|string',
+        ], [
+            "nama_obyek.required" => "Nama obyek harus diisi!",
+            "nama_obyek.max" => "Maksimal 255 karakter!",
+            "deskripsi.required" => "Deskripsi harus diisi!",
+            "kategori.required" => "Kategori harus diisi!",
+            "lokasi_penemuan.required" => "Lokasi penemuan harus diisi!",
+            "nama_pemilik.required" => "Nama pemilik harus diisi!",
+            "nama_pemilik.max" => "Nama pemilik maksimal 255 karakter!",
+            "alamat_pemilik.required" => "Alamat pemilik harus diisi!",
+            "status_pemilik.required" => "Status pemilik harus diisi!",
+            "foto.required" => "Foto cover harus diisi!",
+            "foto.mimes" => "Jenis foto cover harus jpeg, png, atau jpg!",
+            "foto.max" => "Ukuran foto cover maksimal 5mb!",
+            "foto_galeri.required" => "Foto galeri harus diisi!",
+            "foto_galeri.mimes" => "Jenis foto galeri harus jpeg, png, atau jpg!",
+            "foto_galeri.max" => "Ukuran foto galeri maksimal 5mb!",
+           
+
+            
+
         ]);
 
-        $fotoPath = $request->file('foto')->store('uploads', 'public');
-        $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
+        // $fotoPath = $request->file('foto')->store('uploads', 'public');
+        // $dokumenPath = $request->file('dokumen_kajian') ? $request->file('dokumen_kajian')->store('uploads', 'public') : null;
+
+
+
+            // Simpan foto cover
+            $foto = $request->file('foto'); 
+            $fotoName = date('Y-m-d') . '_' . $foto->getClientOriginalName();
+            $fotoPath = 'uploads/odcb/foto/' . $fotoName;
+            Storage::disk('public')->put($fotoPath, file_get_contents($foto));
+
+                // Simpan foto galeri
+                $foto_galeri = $request->file('foto_galeri');
+                $foto_galeriName = date('Y-m-d') . '_' . $foto_galeri->getClientOriginalName();
+                $foto_galeriPath = 'uploads/odcb/foto_galeri/' . $foto_galeriName;
+                Storage::disk('public')->put($foto_galeriPath, file_get_contents($foto_galeri));
+
+            // Simpan dokumen (jika ada)
+            $dokumenPath = null;
+            if ($request->hasFile('dokumen_kajian')) {
+                $dokumen = $request->file('dokumen_kajian');
+                $dokumenName = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
+                $dokumenPath = 'uploads/odcb/dokumen/' . $dokumenName;
+                Storage::disk('public')->put($dokumenPath, file_get_contents($dokumen));
+            }
+
+            benda::create(array_merge($validated, [
+                'foto' => $fotoPath,
+                'foto_galeri' => $foto_galeriPath,
+                'dokumen_kajian' => $dokumenPath,
+
+            ]));
+
+        
 
         DB::table('benda')->insert([
-            'nama_obyek' => $validated['nama_obyek'],
-            'deskripsi' => $validated['deskripsi'],
-            'kategori' => $validated['kategori'],
-            'lokasi_penemuan' => $validated['lokasi_penemuan'],
-            'nama_pemilik' => $validated['nama_pemilik'],
-            'alamat_pemilik' => $validated['alamat_pemilik'],
-            'status_pemilik' => $validated['status_pemilik'],
-            'foto' => $fotoPath,
-            'dokumen_kajian' => $dokumenPath,
-            'created_at' => now(),
-            'updated_at' => now(),
+            
+            'kunci_token' => $validated['kunci_token'],
+            
         ]);
 
         return redirect()->route('odcb.index')->with('success', 'Data berhasil ditambahkan!');
@@ -79,30 +140,72 @@ class OdcbController extends Controller
             'nama_pemilik' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'alamat_pemilik' => 'required|string',
             'status_pemilik' => 'required|in:Pribadi,Pemerintah',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'dokumen_kajian' => 'nullable|mimes:pdf|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
+            'foto_galeri' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
+            'dokumen_kajian' => 'nullable|mimes:pdf|max:5048',
+        ], [
+            "nama_obyek.required" => "Nama obyek harus diisi!",
+            "nama_obyek.max" => "Maksimal 255 karakter!",
+            "deskripsi.required" => "Deskripsi harus diisi!",
+            "kategori.required" => "Kategori harus diisi!",
+            
+            "lokasi_penemuan.required" => "Lokasi penemuan harus diisi!",
+            "nama_pemilik.required" => "Nama pemilik harus diisi!",
+            "nama_pemilik.max" => "Nama pemilik maksimal 255 karakter!",
+            "alamat_pemilik.required" => "Alamat pemilik harus diisi!",
+            "status_pemilik.required" => "Status pemilik harus diisi!",
+            
+            "foto.required" => "Foto cover harus diisi!",
+            "foto.mimes" => "Jenis foto cover harus jpeg, png, atau jpg!",
+            "foto.max" => "Ukuran foto cover maksimal 5mb!",
+            "foto_galeri.required" => "Foto galeri harus diisi!",
+            "foto_galeri.mimes" => "Jenis foto galeri harus jpeg, png, atau jpg!",
+            "foto_galeri.max" => "Ukuran foto galeri maksimal 5mb!",
+           
         ]);
 
-        $data = [
-            'nama_obyek' => $validated['nama_obyek'],
-            'deskripsi' => $validated['deskripsi'],
-            'kategori' => $validated['kategori'],
-            'lokasi_penemuan' => $validated['lokasi_penemuan'],
-            'nama_pemilik' => $validated['nama_pemilik'],
-            'alamat_pemilik' => $validated['alamat_pemilik'],
-            'status_pemilik' => $validated['status_pemilik'],
-            'updated_at' => now(),
-        ];
+        
 
+        $item = benda::findOrFail($id);
+        $data = $validated;
+    
+        // Update foto cover jika diunggah
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('uploads', 'public');
+            if ($item->foto) {
+                Storage::disk('public')->delete($item->foto);
+            }
+            $foto = $request->file('foto');
+            $fotoName = date('Y-m-d') . '_' . $foto->getClientOriginalName();
+            $fotoPath = 'uploads/odcb/foto/' . $fotoName;
+            Storage::disk('public')->put($fotoPath, file_get_contents($foto));
+            $data['foto'] = $fotoPath;
         }
 
+        // Update foto_galeri jika diunggah
+        if ($request->hasFile('foto_galeri')) {
+            if ($item->foto_galeri) {
+                Storage::disk('public')->delete($item->foto_galeri);
+            }
+            $foto_galeri = $request->file('foto_galeri');
+            $foto_galeriName = date('Y-m-d') . '_' . $foto_galeri->getClientOriginalName();
+            $foto_galeriPath = 'uploads/odcb/foto_galeri/' . $foto_galeriName;
+            Storage::disk('public')->put($foto_galeriPath, file_get_contents($foto_galeri));
+            $data['foto_galeri'] = $foto_galeriPath;
+        }
+    
+        // Update dokumen jika diunggah
         if ($request->hasFile('dokumen_kajian')) {
-            $data['dokumen_kajian'] = $request->file('dokumen_kajian')->store('uploads', 'public');
+            if ($item->dokumen_kajian) {
+                Storage::disk('public')->delete($item->dokumen_kajian);
+            }
+            $dokumen = $request->file('dokumen_kajian');
+            $dokumenName = date('Y-m-d') . '_' . $dokumen->getClientOriginalName();
+            $dokumenPath = 'uploads/odcb/dokumen/' . $dokumenName;
+            Storage::disk('public')->put($dokumenPath, file_get_contents($dokumen));
+            $data['dokumen_kajian'] = $dokumenPath;
         }
-
-        DB::table('benda')->where('id', $id)->update($data);
+    
+        $item->update($data);
 
         return redirect()->route('odcb.index')->with('success', 'Data berhasil diperbarui!');
     }
@@ -127,4 +230,24 @@ class OdcbController extends Controller
     
         return redirect()->route('odcb.index')->with('success', 'Data berhasil dihapus');
     }
+
+    public function exportPdf(Request $request)
+{
+    $query = DB::table('benda');
+
+    if ($request->has('search') && $request->input('search') !== '') {
+        $search = $request->input('search');
+        $query->where('nama_obyek', 'like', "%$search%")
+              ->orWhere('kategori', 'like', "%$search%")
+              ->orWhere('nama_pemilik', 'like', "%$search%")
+              ->orWhere('alamat_pemilik', 'like', "%$search%")
+              ->orWhere('lokasi_penemuan', 'like', "%$search%")
+              ->orWhere('status_pemilik', 'like', "%$search%");
+    }
+
+    $benda = $query->get();
+
+    $pdf = PDF::loadView('pages.budaya_odcb.pdf', compact('benda'))->setPaper('a4', 'landscape');
+    return $pdf->download('Data_ODCB.pdf');
+}
 }
