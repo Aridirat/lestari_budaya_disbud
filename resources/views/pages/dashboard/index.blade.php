@@ -168,7 +168,7 @@
         </div>
       </div>
 
-      <div class="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
+      <div class="w-full max-w-full px-3 lg:w-12/12 lg:flex-none">
         <div slider class="relative w-full h-full  rounded-2xl">
           
           <div id='calendar'></div>
